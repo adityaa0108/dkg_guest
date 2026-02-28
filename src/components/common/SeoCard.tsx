@@ -45,7 +45,7 @@ const BirthdayPartySection = () => {
   ];
 
   return (
-    <div className="min-h-screen  p-8 flex items-center justify-center">
+    <div className="min-h-screen p-8 flex items-center justify-center mt-8">
       <div className="w-full max-w-[1680px] bg-white rounded-3xl shadow-2xl overflow-hidden">
         <div className="p-12">
           <div className="flex flex-col gap-10">

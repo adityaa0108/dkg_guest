@@ -3,6 +3,14 @@
 import BirthdayCardHome from '../components/common/BirthdayCardHome'
 import HeroSection from '../components/common/HeroSection'
 import LevelUp from '../components/common/LevelUp'
+import KidsDecorations from '../components/common/KidsDecorations'
+import MakeEveryOccasion from '../components/common/MakeEveryOccasion'
+import StatsSection from '../components/common/StatsSection'
+import WeddingExtraSpecial from '../components/common/WeddingExtraSpecial'
+import RomanticCoupleExperience from '../components/common/RomanticCoupleExperience'
+import FestivalSpecial from '../components/common/FestivalSpecial'
+import SuccessStories from '../components/common/SuccessStories'
+import WelcomeToDKGPro from '../components/common/WelcomeToDKGPro'
 import ProductCard from '../components/common/ProductCard'
 import CategoryNavigation from '../components/navigation/CategoryNavigation'
 import Header from '../components/navigation/Header'
@@ -26,6 +34,14 @@ export default function HomePage() {
       <HeroSection />
       <BirthdayCardHome/>
       <LevelUp />
+      <KidsDecorations />
+      <MakeEveryOccasion />
+      <StatsSection />
+      <WeddingExtraSpecial />
+      <RomanticCoupleExperience />
+      <FestivalSpecial />
+      <SuccessStories />
+      <WelcomeToDKGPro />
       {/* <FirstCard />
       <SecondCard />
       <ThirdCard /> */}
