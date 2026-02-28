@@ -42,6 +42,7 @@ export default function HomePage() {
       <FestivalSpecial />
       <SuccessStories />
       <WelcomeToDKGPro />
+      <SeoCard />
       {/* <FirstCard />
       <SecondCard />
       <ThirdCard /> */}
@@ -49,8 +50,7 @@ export default function HomePage() {
       <EventGrid />
       <ProductCard />
       <CardsCategory /> */}
-      <SeoCard />
-      <Footer/>
+      <Footer />
     </main>
   )
 }

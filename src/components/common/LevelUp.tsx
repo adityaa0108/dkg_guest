@@ -130,7 +130,7 @@ export default function LevelUp() {
   };
 
   return (
-    <section className="w-full max-w-[90vw] sm:max-w-[87.5vw] mx-auto my-8 sm:my-12 bg-neutral-50 rounded-2xl sm:rounded-3xl shadow-[0px_56px_120px_0px_rgba(0,0,0,0.15)] overflow-hidden p-5 sm:p-8 md:p-12 lg:p-16">
+    <section className="w-full max-w-[90vw] sm:max-w-[87.5vw] mx-auto my-8 sm:my-12 bg-neutral-50 rounded-2xl sm:rounded-3xl shadow-[0px_56px_120px_0px_rgba(0,0,0,0.15)] p-5 sm:p-8 md:p-12 lg:p-16">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
@@ -152,15 +152,23 @@ export default function LevelUp() {
           />
         </div>
 
-        {/* Cards: each card = text left | image right */}
+        {/* Cards: normal spacing by default, overlap on scroll via sticky */}
         <div className="space-y-6 sm:space-y-8">
-          {PACKAGES.map((pkg) => (
-            <ServiceCard
+          {PACKAGES.map((pkg, index) => (
+            <div
               key={pkg.id}
-              package={pkg}
-              isFavorite={!!favorites[pkg.id]}
-              onToggleFavorite={() => toggleFavorite(pkg.id)}
-            />
+              className="sticky rounded-2xl transition-all duration-300 ease-out"
+              style={{
+                top: `${index * 16}px`,
+                zIndex: index + 1,
+              }}
+            >
+              <ServiceCard
+                package={pkg}
+                isFavorite={!!favorites[pkg.id]}
+                onToggleFavorite={() => toggleFavorite(pkg.id)}
+              />
+            </div>
           ))}
         </div>
 

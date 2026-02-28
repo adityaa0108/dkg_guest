@@ -37,7 +37,9 @@ function StarRating({ rating }: { rating: number }) {
           </div>
         ))}
       </div>
-      <span className="text-white text-sm font-medium">{rating.toFixed(1)}</span>
+      <span className="text-white text-sm font-medium">
+        {rating.toFixed(1)}
+      </span>
     </div>
   );
 }
@@ -66,17 +68,7 @@ export default function RomanticCoupleExperience() {
               alt="Romantic experience"
               className="w-full h-full min-h-[320px] object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
-              <h3 className="text-xl sm:text-2xl font-bold mb-2 leading-tight">
-                Minnie Mouse Themed Birthday Party
-              </h3>
-              <p className="text-sm text-white/90 mb-4 max-w-xl">
-                Learn planning, coordination, and leadership skills to manage
-                projects effectively.
-              </p>
-              <StarRating rating={4.0} />
-            </div>
+            {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" /> */}
           </div>
 
           {/* Right - 3 blocks stacked */}
