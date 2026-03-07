@@ -17,16 +17,17 @@ export default function WelcomeToDKGPro() {
         {/* Images - pill-shaped row */}
         <div className="flex gap-3 sm:gap-4 justify-center items-center flex-wrap px-4 sm:px-6 pt-8 sm:pt-10">
           {BACKGROUND_IMAGES.map((img) => (
-            <div
+            <a
               key={img.id}
-              className="flex-1 min-w-0 rounded-[9999px] overflow-hidden"
+              href="/product/blue-themed-welcome-baby-room-decor"
+              className="flex-1 min-w-0 rounded-[9999px] overflow-hidden block"
             >
               <img
                 src={img.src}
                 alt={img.alt}
                 className="block w-full object-cover"
               />
-            </div>
+            </a>
           ))}
         </div>
 
@@ -42,7 +43,7 @@ export default function WelcomeToDKGPro() {
 
           {/* BOOK A CALL button */}
           <a
-            href="#"
+            href="/product/blue-themed-welcome-baby-room-decor"
             className="inline-block px-8 sm:px-10 py-3 sm:py-4 rounded-full text-white font-semibold text-sm sm:text-base tracking-wider uppercase transition-opacity hover:opacity-90"
             style={{
               background: "linear-gradient(90deg, #F9A8D4 0%, #C084FC 100%)",

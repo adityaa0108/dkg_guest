@@ -111,13 +111,13 @@ function ServiceCard({
       </div>
 
       {/* Right: Image */}
-      <div className="w-full lg:w-[45%] lg:min-w-[280px] h-48 lg:h-auto lg:min-h-[280px] flex-shrink-0">
+      <a href="/product/blue-themed-welcome-baby-room-decor" className="block w-full lg:w-[45%] lg:min-w-[280px] h-48 lg:h-auto lg:min-h-[280px] flex-shrink-0">
         <img
           src={pkg.image}
           alt={pkg.title}
           className="w-full h-full object-cover"
         />
-      </div>
+      </a>
     </div>
   );
 }
@@ -144,13 +144,13 @@ export default function LevelUp() {
         </div>
 
         {/* Banner */}
-        <div className="mb-8 sm:mb-12 rounded-xl sm:rounded-2xl overflow-hidden">
+        <a href="/product/blue-themed-welcome-baby-room-decor" className="block mb-8 sm:mb-12 rounded-xl sm:rounded-2xl overflow-hidden">
           <img
             src={BANNER_IMAGE}
             alt="Birthday party decoration with balloons and celebration"
             className="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover"
           />
-        </div>
+        </a>
 
         {/* Cards: normal spacing by default, overlap on scroll via sticky */}
         <div className="space-y-6 sm:space-y-8">
@@ -175,7 +175,7 @@ export default function LevelUp() {
         {/* Explore More */}
         <div className="mt-8 sm:mt-12 flex justify-center">
           <a
-            href="#"
+            href="/product/blue-themed-welcome-baby-room-decor"
             className="inline-flex items-center gap-2 text-gray-500 text-sm sm:text-base font-medium uppercase tracking-wide hover:text-gray-700 transition-colors"
           >
             Explore More

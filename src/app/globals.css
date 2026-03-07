@@ -19,10 +19,12 @@
 
 html {
   font-family: "Helvetica Rounded", "Helvetica Neue", system-ui, sans-serif;
+  overflow-x: hidden;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: transparent;
   font-family: inherit;
+  overflow-x: hidden;
 }

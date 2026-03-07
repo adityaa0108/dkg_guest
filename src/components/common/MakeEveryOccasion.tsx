@@ -48,8 +48,9 @@ function ImageCard({
   onLeave: () => void;
 }) {
   return (
-    <div
-      className="flex-shrink-0 w-64 sm:w-72 lg:w-80 h-80 sm:h-96 lg:h-[420px] rounded-2xl overflow-hidden relative group cursor-pointer"
+    <a
+      href="/product/blue-themed-welcome-baby-room-decor"
+      className="flex-shrink-0 w-64 sm:w-72 lg:w-80 h-80 sm:h-96 lg:h-[420px] rounded-2xl overflow-hidden relative group cursor-pointer block"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -81,7 +82,7 @@ function ImageCard({
           </span>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -110,7 +111,7 @@ export default function MakeEveryOccasion() {
               </p>
             </div>
             <a
-              href="#"
+              href="/product/blue-themed-welcome-baby-room-decor"
               className="inline-flex items-center gap-2 w-fit px-8 py-3.5 rounded-full bg-gradient-to-r from-[#FF478D] to-[#9A47FF] text-white font-medium text-sm uppercase tracking-wide hover:shadow-lg hover:scale-[1.02] transition-all mt-8"
             >
               EXPLORE MORE

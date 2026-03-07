@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Heart, Expand, ShoppingCart, ArrowRight } from 'lucide-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface Product {
+export interface Product {
   id: number;
   image: string;
   title: string;
@@ -18,9 +18,10 @@ interface FilterButtonProps {
 
 interface ProductCardProps {
   product: Product;
+  compact?: boolean;
 }
 
-const productsData: Product[] = [
+export const productsData: Product[] = [
   {
     id: 1,
     image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=1000&fit=crop",
@@ -170,11 +171,42 @@ const FilterButton = ({ onClick }: FilterButtonProps) => {
   );
 };
 
-const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = ({ product, compact = false }: ProductCardProps) => {
+  if (compact) {
+    return (
+      <div className="w-full flex flex-col bg-white shadow-lg hover:shadow-2xl transition-all duration-300 rounded-xl overflow-hidden border border-gray-100 cursor-pointer group">
+        <div className="w-full aspect-[3/4] relative bg-neutral-100 overflow-hidden">
+          <img className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src={product.image} alt={product.title} />
+          <div className="absolute right-2 top-2 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-pink-50 shadow-md"><Heart className="w-4 h-4 text-pink-500" /></button>
+            <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 shadow-md"><Expand className="w-4 h-4 text-gray-800" /></button>
+            <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 shadow-md"><ShoppingCart className="w-4 h-4 text-gray-800" /></button>
+          </div>
+        </div>
+        <div className="p-4 flex flex-col gap-3">
+          <div className="flex items-center gap-1.5">
+            {[1, 2, 3, 4].map((s) => (
+              <svg key={s} className="w-4 h-4" viewBox="0 0 20 20" fill="#FCD34D"><path d="M10 1.66797L12.575 6.88464L18.3333 7.7263L14.1667 11.7763L15.15 17.5013L10 14.808L4.85 17.5013L5.83333 11.7763L1.66667 7.7263L7.425 6.88464L10 1.66797Z" /></svg>
+            ))}
+            <span className="text-black text-sm font-semibold">{product.rating}</span>
+          </div>
+          <h2 className="text-black text-sm font-bold leading-tight line-clamp-2">{product.title}</h2>
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-black text-base font-semibold">₹{product.price}/-</span>
+            <span className="text-zinc-400 text-sm line-through">₹{product.originalPrice}</span>
+            <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-r-full">{product.discount}% OFF</span>
+          </div>
+          <button className="w-full h-10 px-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center gap-2 text-white text-sm font-semibold uppercase hover:shadow-lg transition-all">
+            Book Now <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="w-full pb-[0.83vw] rounded-[1.67vw] inline-flex flex-col justify-start items-start gap-[0.83vw] bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-gray-200 cursor-pointer group">
       {/* Image Section */}
-      <div className="self-stretch h-[24.21vw] relative bg-neutral-100 rounded-tl-[1.67vw] rounded-tr-[1.67vw] overflow-hidden">
+      <div className="self-stretch aspect-[4/3] relative bg-neutral-100 rounded-tl-[1.67vw] rounded-tr-[1.67vw] overflow-hidden">
         <img
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           src={product.image}

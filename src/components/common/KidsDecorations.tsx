@@ -136,16 +136,17 @@ export default function KidsDecorations() {
             }}
           >
             {CAROUSEL_IMAGES.map((item) => (
-              <div
+              <a
                 key={item.id}
-                className="flex-shrink-0 w-[85%] min-w-[85%] h-full rounded-xl overflow-hidden scroll-snap-center"
+                href="/product/blue-themed-welcome-baby-room-decor"
+                className="flex-shrink-0 w-[85%] min-w-[85%] h-full rounded-xl overflow-hidden scroll-snap-center block"
               >
                 <img
                   src={item.image}
                   alt="Kids decoration"
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -153,7 +154,7 @@ export default function KidsDecorations() {
         {/* SEE ALL button - centered with balanced gap above and below, fully within gradient section */}
         <div className="flex justify-center items-center w-full py-8 sm:py-10">
           <a
-            href="#"
+            href="/product/blue-themed-welcome-baby-room-decor"
             className="inline-flex items-center gap-2 px-12 py-4 rounded-full font-semibold text-sm uppercase tracking-wide text-gray-900 shadow-lg hover:shadow-xl transition-shadow shrink-0"
             style={{
               background: "linear-gradient(white, white) padding-box, linear-gradient(to right, #ec4899, #9333ea) border-box",

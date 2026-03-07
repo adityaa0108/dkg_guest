@@ -5,18 +5,21 @@ import HeroSection from '../components/common/HeroSection'
 import LevelUp from '../components/common/LevelUp'
 import KidsDecorations from '../components/common/KidsDecorations'
 import MakeEveryOccasion from '../components/common/MakeEveryOccasion'
+import BalloonRingSection from '../components/common/BalloonRingSection'
 import StatsSection from '../components/common/StatsSection'
 import WeddingExtraSpecial from '../components/common/WeddingExtraSpecial'
+import WeddingDecorationSection from '../components/common/WeddingDecorationSection'
+import BridalEntryDecorationSection from '../components/common/BridalEntryDecorationSection'
+import BachelorsPartyDecorationSection from '../components/common/BachelorsPartyDecorationSection'
 import RomanticCoupleExperience from '../components/common/RomanticCoupleExperience'
+import AnniversaryDecorationSection from '../components/common/AnniversaryDecorationSection'
+import RooftopDecorationSection from '../components/common/RooftopDecorationSection'
 import FestivalSpecial from '../components/common/FestivalSpecial'
 import SuccessStories from '../components/common/SuccessStories'
 import WelcomeToDKGPro from '../components/common/WelcomeToDKGPro'
 import ProductCard from '../components/common/ProductCard'
 import CategoryNavigation from '../components/navigation/CategoryNavigation'
 import Header from '../components/navigation/Header'
-import FirstCard from '../components/product/FirstCard'
-import SecondCard from '../components/product/SecondCard'
-import ThirdCard from '../components/product/ThirdCard'
 import CategoryBanner from '../components/common/CategoryBanner'
 import EventGrid from '../components/common/EventGrid'
 import CardsCategory from '../components/common/CardsCategory'
@@ -36,16 +39,19 @@ export default function HomePage() {
       <LevelUp />
       <KidsDecorations />
       <MakeEveryOccasion />
+      <BalloonRingSection />
       <StatsSection />
       <WeddingExtraSpecial />
+      <WeddingDecorationSection />
+      <BridalEntryDecorationSection />
+      <BachelorsPartyDecorationSection />
       <RomanticCoupleExperience />
+      <AnniversaryDecorationSection />
+      <RooftopDecorationSection />
       <FestivalSpecial />
       <SuccessStories />
       <WelcomeToDKGPro />
       <SeoCard />
-      {/* <FirstCard />
-      <SecondCard />
-      <ThirdCard /> */}
       {/* <CategoryBanner />
       <EventGrid />
       <ProductCard />

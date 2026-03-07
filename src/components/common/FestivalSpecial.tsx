@@ -158,13 +158,13 @@ export default function FestivalSpecial() {
         </div>
 
         {/* Top wide image */}
-        <div className="w-full rounded-xl overflow-hidden mb-6 sm:mb-8">
+        <a href="/product/blue-themed-welcome-baby-room-decor" className="block w-full rounded-xl overflow-hidden mb-6 sm:mb-8">
           <img
             src="/images/Image Placeholder.png"
             alt="Festival decoration"
             className="w-full h-auto object-cover"
           />
-        </div>
+        </a>
 
         {/* Scrollable gallery */}
         <div
@@ -177,9 +177,10 @@ export default function FestivalSpecial() {
           }}
         >
           {GALLERY_IMAGES.map((img) => (
-            <div
+            <a
               key={img.id}
-              className="group flex-shrink-0 w-52 sm:w-60 lg:w-72 aspect-[3/4] rounded-3xl overflow-hidden relative cursor-pointer"
+              href="/product/blue-themed-welcome-baby-room-decor"
+              className="group flex-shrink-0 w-52 sm:w-60 lg:w-72 aspect-[3/4] rounded-3xl overflow-hidden relative cursor-pointer block"
             >
               <img
                 src={img.src}
@@ -191,22 +192,19 @@ export default function FestivalSpecial() {
                 <span className="festival-tab-text z-10 px-5 py-2 text-white text-xs font-semibold tracking-wider whitespace-nowrap">
                   PHOTOGRAPHY
                 </span>
-                <a
-                  href="#"
-                  className="festival-tab-text z-10 px-5 py-2 text-white text-xs font-semibold tracking-wider whitespace-nowrap flex items-center gap-1.5 hover:opacity-90"
-                >
+                <span className="festival-tab-text z-10 px-5 py-2 text-white text-xs font-semibold tracking-wider whitespace-nowrap flex items-center gap-1.5">
                   EXPLORE MORE
                   <ChevronRight className="w-3.5 h-3.5" />
-                </a>
+                </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
         {/* EXPLORE MORE link */}
         <div className="flex justify-center mt-8">
           <a
-            href="#"
+            href="/product/blue-themed-welcome-baby-room-decor"
             className="inline-flex items-center gap-2 text-gray-600 font-medium text-sm sm:text-base hover:text-gray-900 transition-colors"
           >
             EXPLORE MORE

@@ -42,8 +42,9 @@ const services = [
 
 const ServiceCard = ({ service, isHovered, onHover, onLeave }) => {
     return (
-        <div
-            className=" w-[20vw] h-[28.13vw] relative rounded-[1.67vw] overflow-hidden group cursor-pointer transition-all duration-500"
+        <a
+            href="/product/blue-themed-welcome-baby-room-decor"
+            className="block w-[20vw] h-[28.13vw] relative rounded-[1.67vw] overflow-hidden group cursor-pointer transition-all duration-500"
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
         >
@@ -80,17 +81,17 @@ const ServiceCard = ({ service, isHovered, onHover, onLeave }) => {
                     <ChevronRight className="w-[1.04vw] h-[1.04vw] text-white" />
                 </div>
             </div>
-        </div>
+        </a>
     );
 };
 
 const ExploreMoreCard = () => {
     return (
-        <div className="flex-shrink-0 w-[20vw] h-[28.13vw] bg-gradient-to-l from-purple-500 to-pink-500 rounded-[1.67vw] overflow-hidden flex flex-col items-center justify-center gap-[1.67vw] cursor-pointer hover:shadow-2xl transition-all duration-500 group">
+        <a href="/product/blue-themed-welcome-baby-room-decor" className="flex-shrink-0 w-[20vw] h-[28.13vw] bg-gradient-to-l from-purple-500 to-pink-500 rounded-[1.67vw] overflow-hidden flex flex-col items-center justify-center gap-[1.67vw] cursor-pointer hover:shadow-2xl transition-all duration-500 group">
             <div className="text-white text-[2.5vw] font-black font-['Inter'] uppercase tracking-[0.2em] text-center leading-tight group-hover:scale-110 transition-transform duration-500">
                 Explore<br />More
             </div>
-        </div>
+        </a>
     );
 };
 

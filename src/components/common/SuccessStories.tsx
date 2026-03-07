@@ -52,13 +52,13 @@ export default function SuccessStories() {
           </button>
 
           {/* Card - image only */}
-          <div className="flex-1 min-w-0 bg-white rounded-2xl border overflow-hidden">
+          <a href="/product/blue-themed-welcome-baby-room-decor" className="flex-1 min-w-0 bg-white rounded-2xl border overflow-hidden block">
             <img
               src={currentImage.image}
               alt="Testimonial"
               className="w-full h-auto object-cover"
             />
-          </div>
+          </a>
 
           {/* Right arrow */}
           <button

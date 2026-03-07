@@ -22,8 +22,9 @@ function WeddingCard({
   onLeave: () => void;
 }) {
   return (
-    <div
-      className="relative flex-1 min-w-[200px] aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer"
+    <a
+      href="/product/blue-themed-welcome-baby-room-decor"
+      className="relative flex-1 min-w-[200px] aspect-[3/4] rounded-2xl overflow-hidden group cursor-pointer block"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -51,7 +52,7 @@ function WeddingCard({
           </span>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
@@ -89,7 +90,7 @@ export default function WeddingExtraSpecial() {
         {/* EXPLORE MORE button */}
         <div className="flex justify-center">
           <a
-            href="#"
+            href="/product/blue-themed-welcome-baby-room-decor"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white shadow-md text-gray-900 font-medium text-sm uppercase tracking-wide hover:shadow-lg transition-shadow"
           >
             EXPLORE MORE
