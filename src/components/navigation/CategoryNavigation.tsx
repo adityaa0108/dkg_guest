@@ -266,7 +266,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     },
     {
       id: 'home-decoration',
-      label: 'Home Decoration',
+      label: "HOME DEDCORATION",
       href: '/home-decoration',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&h=600&fit=crop',
@@ -365,10 +365,10 @@ export default function NavigationBar() {
 
   if (isLoading) {
     return (
-      <nav className="w-full h-[3.33vw] bg-white border-b border-gray-200">
-        <div className="max-w-[100vw] mx-auto px-[5.83vw] h-full flex items-center justify-between">
+      <nav className="w-full bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600">
+        <div className="max-w-[1920px] mx-auto px-28 py-3 flex items-center justify-between gap-8">
           {[...Array(9)].map((_, i) => (
-            <div key={i} className="h-[1.25vw] bg-gray-200 rounded animate-pulse w-[5vw]" />
+            <div key={i} className="h-4 bg-white/20 rounded animate-pulse w-24" />
           ))}
         </div>
       </nav>
@@ -377,26 +377,26 @@ export default function NavigationBar() {
 
   return (
     <>
-      <nav className="w-full h-[3.33vw] bg-white border-b border-gray-200 relative z-50" ref={dropdownRef}>
-        <div className="max-w-[100vw] mx-auto px-[5.83vw] h-full">
-          <ul className="flex items-center justify-between h-full">
+      <nav className="w-full bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 relative z-50" ref={dropdownRef}>
+        <div className="max-w-[1920px] mx-auto px-28">
+          <ul className="flex items-center justify-between gap-8 py-3">
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className="relative h-full flex items-center"
+                className="relative flex items-center"
                 onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.id)}
                 onMouseLeave={handleMouseLeave}
               >
                 <a
                   href={item.href}
-                  className={`px-[1.25vw] py-[0.63vw] flex items-center gap-[0.63vw] text-pink-900 text-[0.63vw] font-semibold uppercase transition-all h-full ${
-                    activeDropdown === item.id ? 'bg-pink-50' : 'hover:bg-pink-50'
+                  className={`px-2 py-2 flex items-center gap-1.5 text-white text-sm font-medium uppercase tracking-wide transition-all whitespace-nowrap ${
+                    activeDropdown === item.id ? 'opacity-100' : 'hover:opacity-90'
                   }`}
                 >
                   <span>{item.label}</span>
                   {item.hasDropdown && (
                     <ChevronDown
-                      className={`w-[0.83vw] h-[0.83vw] transition-transform duration-300 ${
+                      className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
                         activeDropdown === item.id ? 'rotate-180' : ''
                       }`}
                     />

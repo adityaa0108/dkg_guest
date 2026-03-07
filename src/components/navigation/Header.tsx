@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { MapPin, Search, Heart, ShoppingCart, X } from 'lucide-react';
 
 export default function Header() {
@@ -12,74 +14,79 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full bg-gray-50 border-b border-gray-200">
-        <div className="max-w-[1920px] mx-auto px-28">
-          <div className="flex items-center justify-between py-7 gap-6">
-            {/* Logo */}
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2 p-2 cursor-pointer">
-                <div className="w-9 h-8 bg-gradient-to-l from-purple-500 to-pink-500 rounded"></div>
-                <div className="w-4 h-5 bg-gradient-to-l from-purple-500 to-pink-500 rounded"></div>
-                <div className="w-10 h-5 bg-purple-500 rounded"></div>
-                <div className="w-16 h-6 bg-gradient-to-l from-purple-500 to-pink-500 rounded flex items-center justify-center text-white text-xs font-bold">
-                  Pro
-                </div>
-              </div>
+      <header className="w-full">
+        {/* Top Bar */}
+        <div className="w-full bg-[#faf8f5] border-b border-gray-200">
+          <div className="max-w-[1920px] mx-auto px-28">
+            <div className="flex items-center justify-between py-5 gap-6">
+              {/* Logo */}
+              <div className="flex items-center gap-6">
+                <Link href="/" className="flex items-center cursor-pointer shrink-0">
+                  <Image
+                    src="/images/Logo.svg"
+                    alt="DKGPro"
+                    width={140}
+                    height={40}
+                    priority
+                    className="h-10 w-auto"
+                  />
+                </Link>
 
-              {/* Location Button */}
-              <button className="h-12 px-4 py-2 rounded-full border border-pink-900 flex items-center gap-2 hover:bg-pink-50 transition-colors">
-                <MapPin className="w-5 h-5 text-pink-900" />
-                <span className="text-pink-900 text-base font-medium whitespace-nowrap">
-                  Delhi NCR
-                </span>
-              </button>
-            </div>
-
-            {/* Search Bar */}
-            <div className="flex-1 max-w-2xl relative">
-              <div className="relative">
-                <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-pink-900" />
-                <input
-                  type="text"
-                  placeholder="Search for..."
-                  className="w-full h-12 pl-14 pr-6 rounded-full border border-pink-900/20 bg-white text-pink-900 placeholder:text-pink-900/60 focus:outline-none focus:border-pink-900 transition-colors"
-                />
-              </div>
-            </div>
-
-            {/* Right Actions */}
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3">
-                {/* Wishlist Button */}
-                <button
-                  onClick={() => setIsWishlistOpen(!isWishlistOpen)}
-                  className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-pink-50 transition-colors relative"
-                  aria-label="Wishlist"
-                >
-                  <Heart className="w-6 h-6 text-pink-900" />
-                  {wishlistItems.length > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
-                      {wishlistItems.length}
-                    </span>
-                  )}
-                </button>
-
-                {/* Cart Button */}
-                <button
-                  className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-pink-50 transition-colors relative"
-                  aria-label="Shopping Cart"
-                >
-                  <ShoppingCart className="w-6 h-6 text-pink-900" />
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
-                    0
+                {/* Location Button */}
+                <button className="h-12 px-4 py-2 rounded-full border border-gray-300 bg-white flex items-center gap-2 hover:bg-gray-50 transition-colors shrink-0">
+                  <MapPin className="w-5 h-5 text-gray-700" />
+                  <span className="text-gray-700 text-base font-medium whitespace-nowrap">
+                    Delhi NCR
                   </span>
                 </button>
               </div>
 
-              {/* Login Button */}
-              <button className="h-12 px-8 bg-pink-900 text-white text-sm font-semibold rounded-full hover:bg-pink-800 transition-colors">
-                Login
-              </button>
+              {/* Search Bar */}
+              <div className="flex-1 max-w-2xl relative min-w-0">
+                <div className="relative">
+                  <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
+                  <input
+                    type="text"
+                    placeholder="Search for..."
+                    className="w-full h-12 pl-14 pr-6 rounded-full border border-gray-300 bg-white text-gray-800 placeholder:text-gray-500 focus:outline-none focus:border-gray-400 transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Right Actions */}
+              <div className="flex items-center gap-6 shrink-0">
+                <div className="flex items-center gap-3">
+                  {/* Wishlist Button */}
+                  <button
+                    onClick={() => setIsWishlistOpen(!isWishlistOpen)}
+                    className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative"
+                    aria-label="Wishlist"
+                  >
+                    <Heart className="w-6 h-6 text-gray-700" />
+                    {wishlistItems.length > 0 && (
+                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
+                        {wishlistItems.length}
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Cart Button */}
+                  <button
+                    className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative"
+                    aria-label="Shopping Cart"
+                  >
+                    <ShoppingCart className="w-6 h-6 text-gray-700" />
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
+                      0
+                    </span>
+                  </button>
+                </div>
+
+                {/* Login Button */}
+                <button className="h-10 px-8 bg-[#6B2D5C] text-white text-sm font-semibold rounded-full hover:bg-[#5a2650] transition-colors uppercase">
+                  Login
+                </button>
+              </div>
             </div>
           </div>
         </div>
