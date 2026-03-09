@@ -2,6 +2,7 @@
 
 import BirthdayCardHome from '../components/common/BirthdayCardHome'
 import HeroSection from '../components/common/HeroSection'
+import FrameImageSection from '../components/common/FrameImageSection'
 import LevelUp from '../components/common/LevelUp'
 import KidsDecorations from '../components/common/KidsDecorations'
 import MakeEveryOccasion from '../components/common/MakeEveryOccasion'
@@ -35,6 +36,7 @@ export default function HomePage() {
       <Header/>
       <CategoryNavigation/>
       <HeroSection />
+      <FrameImageSection />
       <BirthdayCardHome/>
       <LevelUp />
       <KidsDecorations />

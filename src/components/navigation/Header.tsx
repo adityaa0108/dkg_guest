@@ -83,9 +83,12 @@ export default function Header() {
                 </div>
 
                 {/* Login Button */}
-                <button className="h-10 px-8 bg-[#6B2D5C] text-white text-sm font-semibold rounded-full hover:bg-[#5a2650] transition-colors uppercase">
+                <Link
+                  href="/login"
+                  className="h-10 px-8 bg-[#6B2D5C] text-white text-sm font-semibold rounded-full hover:bg-[#5a2650] transition-colors uppercase flex items-center justify-center"
+                >
                   Login
-                </button>
+                </Link>
               </div>
             </div>
           </div>

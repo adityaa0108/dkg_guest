@@ -1,23 +1,30 @@
-/**
- * Specific Category Page - Shows events for a specific category
- * Route: /categories/[mainCategory]/[subCategory]/[category]
- * Example: /categories/music/concerts/rock-concerts
- */
+import Header from '../../../../../components/navigation/Header';
+import CategoryNavigation from '../../../../../components/navigation/CategoryNavigation';
+import SubCategoryItemPageContent from '../../../../../components/category/SubCategoryItemPageContent';
+import Footer from '../../../../../components/common/Footer';
+import { getSubCategoryItemData } from '../../../../../lib/api/category';
 
-interface CategoryPageProps {
+interface SubCategoryItemPageProps {
   params: {
-    mainCategory: string
-    subCategory: string
-    category: string
-  }
+    mainCategory: string;
+    subCategory: string;
+    category: string;
+  };
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default async function SubCategoryItemPage({ params }: SubCategoryItemPageProps) {
+  const data = await getSubCategoryItemData(
+    params.mainCategory,
+    params.subCategory,
+    params.category
+  );
+
   return (
-    <div>
-      <h1>Category: {params.category}</h1>
-      <p>Path: {params.mainCategory} → {params.subCategory} → {params.category}</p>
-      {/* Events list will be rendered here */}
-    </div>
-  )
+    <main>
+      <Header />
+      <CategoryNavigation />
+      <SubCategoryItemPageContent data={data} />
+      <Footer />
+    </main>
+  );
 }

@@ -1,22 +1,25 @@
-/**
- * Sub Category Page - Shows categories within a subcategory
- * Route: /categories/[mainCategory]/[subCategory]
- * Example: /categories/music/concerts
- */
+import Header from '../../../../components/navigation/Header';
+import CategoryNavigation from '../../../../components/navigation/CategoryNavigation';
+import CategoryPageContent from '../../../../components/category/CategoryPageContent';
+import Footer from '../../../../components/common/Footer';
+import { getCategoryData } from '../../../../lib/api/category';
 
 interface SubCategoryPageProps {
   params: {
-    mainCategory: string
-    subCategory: string
-  }
+    mainCategory: string;
+    subCategory: string;
+  };
 }
 
-export default function SubCategoryPage({ params }: SubCategoryPageProps) {
+export default async function SubCategoryPage({ params }: SubCategoryPageProps) {
+  const data = await getCategoryData(params.subCategory);
+
   return (
-    <div>
-      <h1>Sub Category: {params.subCategory}</h1>
-      <p>Under: {params.mainCategory}</p>
-      {/* Categories list will be rendered here */}
-    </div>
-  )
+    <main>
+      <Header />
+      <CategoryNavigation />
+      <CategoryPageContent data={data} />
+      <Footer />
+    </main>
+  );
 }

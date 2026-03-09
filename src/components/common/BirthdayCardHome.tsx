@@ -40,7 +40,14 @@ const services = [
     }
 ];
 
-const ServiceCard = ({ service, isHovered, onHover, onLeave }) => {
+interface ServiceCardProps {
+  service: { id: number; image: string; title: string };
+  isHovered: boolean;
+  onHover: () => void;
+  onLeave: () => void;
+}
+
+const ServiceCard = ({ service, isHovered, onHover, onLeave }: ServiceCardProps) => {
     return (
         <a
             href="/product/blue-themed-welcome-baby-room-decor"
@@ -96,8 +103,8 @@ const ExploreMoreCard = () => {
 };
 
 export default function BirthdayServicesCarousel() {
-    const scrollContainerRef = useRef(null);
-    const [hoveredCard, setHoveredCard] = useState(null);
+    const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+    const [hoveredCard, setHoveredCard] = useState<number | null>(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -118,7 +125,7 @@ export default function BirthdayServicesCarousel() {
         }
     }, []);
 
-    const scroll = (direction) => {
+    const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
             const scrollAmount = 432; // 384px card width + 48px gap
             const newScrollLeft = scrollContainerRef.current.scrollLeft + (direction === 'right' ? scrollAmount : -scrollAmount);

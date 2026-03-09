@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -67,7 +69,11 @@ const cardsData = [
     }
 ];
 
-const CardsCategory = () => {
+interface CardsCategoryProps {
+  compact?: boolean;
+}
+
+const CardsCategory = ({ compact = false }: CardsCategoryProps) => {
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 6;
     const totalPages = Math.ceil(cardsData.length / cardsPerPage);
@@ -80,7 +86,7 @@ const CardsCategory = () => {
         setCurrentPage(prev => Math.min(totalPages, prev + 1));
     };
 
-    const handlePageClick = (page) => {
+    const handlePageClick = (page: number) => {
         setCurrentPage(page);
     };
 
@@ -89,15 +95,15 @@ const CardsCategory = () => {
     const currentCards = cardsData.slice(startIndex, endIndex);
 
     return (
-        <div className="bg-white min-h-screen pb-32 pt-[220px]">
+        <div className={`bg-white min-h-screen pb-32 ${compact ? 'pt-24' : 'pt-[220px]'}`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {currentCards.map((card, index) => (
                     <section 
                         key={card.id} 
-                        className={`relative w-full ${index === 0 ? 'pt-16' : 'pt-8'} pb-8 flex items-center justify-center`}
+                        className={`relative w-full ${index === 0 ? (compact ? 'pt-8' : 'pt-16') : 'pt-8'} pb-8 flex items-center justify-center`}
                     >
                         {/* Background Image Container */}
-                        <div className="absolute inset-0 w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden rounded-[32px]">
+                        <div className={`absolute inset-0 w-full overflow-hidden rounded-[32px] ${compact ? 'h-[280px] md:h-[360px] lg:h-[420px]' : 'h-[400px] md:h-[500px] lg:h-[600px]'}`}>
                             <img
                                 src={card.image}
                                 alt={card.alt}
@@ -108,21 +114,21 @@ const CardsCategory = () => {
                         </div>
                         
                         {/* Content Card - Positioned below the image */}
-                        <div className="relative z-10 w-[95%] md:w-[90%] lg:w-[85%] mt-[300px] md:mt-[400px] lg:mt-[500px]">
-                            <div className="bg-neutral-50/95 backdrop-blur-sm rounded-[32px] shadow-[2px_2px_80px_0px_rgba(0,0,0,0.15)] p-4 md:p-9">
-                                <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-16">
+                        <div className={`relative z-10 w-[95%] md:w-[90%] lg:w-[85%] ${compact ? 'mt-[200px] md:mt-[280px] lg:mt-[340px]' : 'mt-[300px] md:mt-[400px] lg:mt-[500px]'}`}>
+                            <div className={`bg-neutral-50/95 backdrop-blur-sm rounded-[32px] shadow-[2px_2px_80px_0px_rgba(0,0,0,0.15)] ${compact ? 'p-3 md:p-6' : 'p-4 md:p-9'}`}>
+                                <div className="flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-12">
                                     {/* Text Content */}
-                                    <div className="flex flex-col justify-center items-start gap-3 flex-1">
+                                    <div className="flex flex-col justify-center items-start gap-2 flex-1">
                                         {/* Tag */}
                                         <div className="py-1 rounded inline-flex justify-start items-center">
-                                            <h2 className="text-pink-900 text-xl md:text-2xl font-semibold uppercase leading-9 tracking-[0.2em]">
+                                            <h2 className={`text-pink-900 font-semibold uppercase tracking-[0.2em] ${compact ? 'text-sm md:text-base' : 'text-xl md:text-2xl leading-9'}`}>
                                                 {card.tag}
                                             </h2>
                                         </div>
 
                                         {/* Heading */}
                                         <div className="w-full">
-                                            <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight md:leading-9">
+                                            <h1 className={`text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 font-semibold leading-tight ${compact ? 'text-base md:text-lg lg:text-xl' : 'text-2xl md:text-3xl lg:text-4xl md:leading-9'}`}>
                                                 {card.title}
                                             </h1>
                                         </div>
@@ -131,24 +137,20 @@ const CardsCategory = () => {
                                     {/* CTA Button */}
                                     <div className="flex-shrink-0">
                                         <div
-                                            className="group w-full sm:w-60 h-14 p-[2px] rounded-full
-                                            bg-gradient-to-l from-purple-500 to-pink-500
-                                            transition-all duration-300 ease-in-out
-                                            hover:p-0"
+                                            className={`group w-full rounded-full ${compact ? 'sm:w-40 h-10' : 'sm:w-60 h-14'} p-[2px] bg-gradient-to-l from-purple-500 to-pink-500 transition-all duration-300 ease-in-out hover:p-0`}
                                         >
                                             <button
-                                                className="w-full h-full px-9 bg-white rounded-full
+                                                className={`w-full h-full bg-white rounded-full ${compact ? 'px-5' : 'px-9'}
                                                 hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500
                                                 transition-all duration-300 ease-in-out
-                                                flex justify-center items-center gap-2
-                                                shadow-md hover:shadow-lg"
+                                                flex justify-center items-center gap-2 shadow-md hover:shadow-lg`}
                                                 aria-label={`See all ${card.tag} offers`}
                                             >
-                                                <span className="bg-gradient-to-l from-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:text-white text-base font-semibold uppercase tracking-wide transition-colors duration-300">
+                                                <span className={`bg-gradient-to-l from-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:text-white font-semibold uppercase tracking-wide transition-colors duration-300 ${compact ? 'text-sm' : 'text-base'}`}>
                                                     See All
                                                 </span>
 
-                                                <ArrowRight className="w-5 h-5 text-purple-500 group-hover:text-white transition-all duration-300 group-hover:translate-x-1" />
+                                                <ArrowRight className={`text-purple-500 group-hover:text-white transition-all duration-300 group-hover:translate-x-1 ${compact ? 'w-4 h-4' : 'w-5 h-5'}`} />
                                             </button>
                                         </div>
                                     </div>
@@ -159,15 +161,15 @@ const CardsCategory = () => {
                 ))}
 
                 {/* Pagination */}
-                <div className="flex justify-center items-center gap-12 pt-16 pb-12">
+                <div className={`flex justify-center items-center gap-8 pt-12 pb-12 ${compact ? 'gap-6' : 'gap-12'}`}>
                     {/* Previous Button */}
                     <button
                         onClick={handlePrevious}
                         disabled={currentPage === 1}
-                        className="w-16 h-16 rounded-full flex items-center justify-center transition-opacity disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-100"
+                        className={`rounded-full flex items-center justify-center transition-opacity disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-100 ${compact ? 'w-10 h-10' : 'w-16 h-16'}`}
                         aria-label="Previous page"
                     >
-                        <ChevronLeft className="w-7 h-7 text-pink-900" strokeWidth={2.67} />
+                        <ChevronLeft className={`text-pink-900 ${compact ? 'w-5 h-5' : 'w-7 h-7'}`} strokeWidth={2.67} />
                     </button>
 
                     {/* Page Numbers */}
@@ -176,11 +178,11 @@ const CardsCategory = () => {
                             <button
                                 key={page}
                                 onClick={() => handlePageClick(page)}
-                                className={`w-16 h-16 rounded-full text-3xl font-medium transition-all ${
+                                className={`rounded-full font-medium transition-all ${
                                     currentPage === page
                                         ? 'bg-pink-900 text-white'
                                         : 'bg-white text-pink-900 border border-pink-900 hover:bg-pink-50'
-                                }`}
+                                } ${compact ? 'w-10 h-10 text-lg' : 'w-16 h-16 text-3xl'}`}
                                 aria-label={`Go to page ${page}`}
                                 aria-current={currentPage === page ? 'page' : undefined}
                             >
@@ -193,10 +195,10 @@ const CardsCategory = () => {
                     <button
                         onClick={handleNext}
                         disabled={currentPage === totalPages}
-                        className="w-16 h-16 rounded-full flex items-center justify-center transition-opacity disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-100"
+                        className={`rounded-full flex items-center justify-center transition-opacity disabled:opacity-30 disabled:cursor-not-allowed hover:bg-pink-100 ${compact ? 'w-10 h-10' : 'w-16 h-16'}`}
                         aria-label="Next page"
                     >
-                        <ChevronRight className="w-7 h-7 text-pink-900" strokeWidth={2.67} />
+                        <ChevronRight className={`text-pink-900 ${compact ? 'w-5 h-5' : 'w-7 h-7'}`} strokeWidth={2.67} />
                     </button>
                 </div>
             </div>

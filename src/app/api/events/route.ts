@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10')
     
     // TODO: Replace with actual database call
-    const events = []
+    const events: unknown[] = []
     const total = 0
 
     return NextResponse.json({

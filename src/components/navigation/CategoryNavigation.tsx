@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
 
 // Types
@@ -34,7 +36,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'anniversary',
       label: 'Anniversary',
-      href: '/anniversary',
+      href: '/categories/anniversary',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1529634597767-fbef2a7a6690?w=800&h=600&fit=crop',
       categories: [
@@ -82,7 +84,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'birthdays',
       label: 'Birthdays',
-      href: '/birthdays',
+      href: '/categories/birthdays',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop',
       categories: [
@@ -119,7 +121,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'candlelight-dinners',
       label: 'Candlelight Dinners',
-      href: '/candlelight-dinners',
+      href: '/categories/candlelight-dinners',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&h=600&fit=crop',
       categories: [
@@ -156,7 +158,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'decorations',
       label: 'Decorations',
-      href: '/decorations',
+      href: '/categories/decorations',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&h=600&fit=crop',
       categories: [
@@ -193,7 +195,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'festivals',
       label: 'Festivals',
-      href: '/festivals',
+      href: '/categories/festivals',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1482575832494-771f74bf6857?w=800&h=600&fit=crop',
       categories: [
@@ -230,7 +232,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'kids-celebrations',
       label: "Kid's Celebrations",
-      href: '/kids-celebrations',
+      href: '/categories/kids-celebrations',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=600&fit=crop',
       categories: [
@@ -267,7 +269,7 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'home-decoration',
       label: "HOME DEDCORATION",
-      href: '/home-decoration',
+      href: '/categories/home-decoration',
       hasDropdown: true,
       image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&h=600&fit=crop',
       categories: [
@@ -304,24 +306,31 @@ const fetchNavigationData = async (): Promise<MenuItem[]> => {
     {
       id: 'corporate-events',
       label: 'Corporate Events',
-      href: '/corporate-events',
+      href: '/categories/corporate-events',
       hasDropdown: false
     },
     {
       id: 'tent-services',
       label: 'Tent Services',
-      href: '/tent-services',
+      href: '/categories/tent-services',
       hasDropdown: false
     }
   ];
 };
 
 export default function NavigationBar() {
+  const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleCategoryClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    setActiveDropdown(null);
+    router.push(href);
+  };
 
   useEffect(() => {
     const loadNavigation = async () => {
@@ -340,7 +349,8 @@ export default function NavigationBar() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (dropdownRef.current && !dropdownRef.current.contains(target)) {
         setActiveDropdown(null);
       }
     };
@@ -376,8 +386,8 @@ export default function NavigationBar() {
   }
 
   return (
-    <>
-      <nav className="w-full bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 relative z-50" ref={dropdownRef}>
+    <div ref={dropdownRef} className="relative">
+      <nav className="w-full bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 relative z-50">
         <div className="max-w-[1920px] mx-auto px-28">
           <ul className="flex items-center justify-between gap-8 py-3">
             {menuItems.map((item) => (
@@ -387,9 +397,10 @@ export default function NavigationBar() {
                 onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.id)}
                 onMouseLeave={handleMouseLeave}
               >
-                <a
+                <Link
                   href={item.href}
-                  className={`px-2 py-2 flex items-center gap-1.5 text-white text-sm font-medium uppercase tracking-wide transition-all whitespace-nowrap ${
+                  onClick={(e) => handleCategoryClick(e, item.href)}
+                  className={`px-2 py-2 flex items-center gap-1.5 text-white text-sm font-medium uppercase tracking-wide transition-all whitespace-nowrap cursor-pointer ${
                     activeDropdown === item.id ? 'opacity-100' : 'hover:opacity-90'
                   }`}
                 >
@@ -401,18 +412,18 @@ export default function NavigationBar() {
                       }`}
                     />
                   )}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </nav>
 
-      {/* Dropdown Card - Fixed to center of screen */}
+      {/* Dropdown Card - Fixed to center of screen, inside dropdownRef so clicks don't close */}
       {activeDropdown && menuItems.find(item => item.id === activeDropdown)?.categories && (
         <div
           className="fixed left-1/2 -translate-x-1/2 z-40 top-[10.17vw]"
-          style={{ width: 'calc(100% - 14rem)', maxWidth: '[72.92vw]' }}
+          style={{ width: 'calc(100% - 14rem)', maxWidth: '72.92vw' }}
           onMouseEnter={() => {
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
           }}
@@ -437,25 +448,38 @@ export default function NavigationBar() {
                 <div className="flex-1 grid grid-cols-3 gap-10">
                   {menuItems
                     .find(item => item.id === activeDropdown)
-                    ?.categories?.map((category) => (
+                    ?.categories?.map((category) => {
+                      const parentItem = menuItems.find(item => item.id === activeDropdown);
+                      const subCategoryHref = parentItem ? `${parentItem.href}/${category.id}` : '#';
+                      return (
                       <div key={category.id} className="space-y-5 group">
-                        <h3 className="text-pink-200 text-[0.73vw] font-bold tracking-wider uppercase border-b border-pink-400/30 pb-[0.63vw] transition-all duration-300 group-hover:border-pink-300/60 group-hover:text-white">
+                        <Link
+                          href={subCategoryHref}
+                          onClick={(e) => handleCategoryClick(e, subCategoryHref)}
+                          className="block text-pink-200 text-[0.73vw] font-bold tracking-wider uppercase border-b border-pink-400/30 pb-[0.63vw] transition-all duration-300 group-hover:border-pink-300/60 group-hover:text-white cursor-pointer"
+                        >
                           {category.title}
-                        </h3>
+                        </Link>
                         <ul className="space-y-2.5">
-                          {category.items.map((subItem) => (
-                            <li key={subItem.id}>
-                              <a
-                                href={subItem.href}
-                                className="block text-pink-100 text-[0.78vw] py-[0.31vw] px-[0.42vw] rounded-[0.42vw] hover:bg-white/10 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out hover:shadow-lg backdrop-blur-sm"
-                              >
-                                {subItem.label}
-                              </a>
-                            </li>
-                          ))}
+                          {category.items.map((subItem) => {
+                            const itemSlug = subItem.href.split('/').filter(Boolean).pop() || subItem.id;
+                            const itemHref = `${parentItem?.href || ''}/${category.id}/${itemSlug}`;
+                            return (
+                              <li key={subItem.id}>
+                                <Link
+                                  href={itemHref}
+                                  onClick={(e) => handleCategoryClick(e, itemHref)}
+                                  className="block text-pink-100 text-[0.78vw] py-[0.31vw] px-[0.42vw] rounded-[0.42vw] hover:bg-white/10 hover:text-white hover:translate-x-2 transition-all duration-300 ease-out hover:shadow-lg backdrop-blur-sm"
+                                >
+                                  {subItem.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
                         </ul>
                       </div>
-                    ))}
+                    );
+                    })}
                 </div>
               </div>
             </div>
@@ -479,6 +503,6 @@ export default function NavigationBar() {
           animation: dropdownSlide 0.3s ease-out;
         }
       `}</style>
-    </>
+    </div>
   );
 }

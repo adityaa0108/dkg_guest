@@ -1,20 +1,28 @@
-/**
- * Main Category Page - Shows subcategories for a main category
- * Route: /categories/[mainCategory]
- * Example: /categories/music
- */
+import Header from '../../../components/navigation/Header';
+import CategoryNavigation from '../../../components/navigation/CategoryNavigation';
+import SubCategoryItemPageContent from '../../../components/category/SubCategoryItemPageContent';
+import Footer from '../../../components/common/Footer';
+import { getSubCategoryItemData } from '../../../lib/api/category';
 
-interface MainCategoryPageProps {
+interface CategoryPageProps {
   params: {
-    mainCategory: string
-  }
+    mainCategory: string;
+  };
 }
 
-export default function MainCategoryPage({ params }: MainCategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
+  const data = await getSubCategoryItemData(
+    params.mainCategory,
+    params.mainCategory,
+    params.mainCategory
+  );
+
   return (
-    <div>
-      <h1>Main Category: {params.mainCategory}</h1>
-      {/* Subcategories grid will be rendered here */}
-    </div>
-  )
+    <main>
+      <Header />
+      <CategoryNavigation />
+      <SubCategoryItemPageContent data={data} />
+      <Footer />
+    </main>
+  );
 }

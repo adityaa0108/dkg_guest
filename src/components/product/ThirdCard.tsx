@@ -132,7 +132,7 @@ export default function EventDecorationTabs() {
                 <p className="text-pink-900/70 text-2xl leading-9 mb-16 max-w-5xl">
                   Elevate your environment into an unforgettable experience with our expert decoration services. No matter the occasion—be it a birthday party, wedding, corporate gathering, or festive celebration—our dedicated team specializes in crafting distinctive designs that harmonize creativity, color, and visual appeal.
                   <br /><br />
-                  We pride ourselves on our meticulous attention to detail, ensuring that every aspect—from the lighting to the layout—aligns seamlessly with your event's theme and atmosphere. Our goal is to create a cohesive and immersive experience that leaves a lasting impression on your guests.
+                  We pride ourselves on our meticulous attention to detail, ensuring that every aspect—from the lighting to the layout—aligns seamlessly with your event&apos;s theme and atmosphere. Our goal is to create a cohesive and immersive experience that leaves a lasting impression on your guests.
                 </p>
 
                 {/* Info Cards */}

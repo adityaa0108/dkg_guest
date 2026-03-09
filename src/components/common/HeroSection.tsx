@@ -12,15 +12,15 @@ const HeroSection = () => {
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const containerRef = useRef(null);
-  const autoPlayIntervalRef = useRef(null);
+  const autoPlayIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Array of slide data with images and links
   const slides = [
-    { image: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1872&h=826&fit=crop' },
-    { image: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1872&h=826&fit=crop' },
-    { image: 'https://images.unsplash.com/photo-1519167758481-83f29da8c2b0?w=1872&h=826&fit=crop' },
-    { image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=1872&h=826&fit=crop' },
-    { image: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=1872&h=826&fit=crop' },
+    { image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1872&h=826&fit=crop' },
+    { image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=1872&h=826&fit=crop' },
+    { image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1872&h=826&fit=crop' },
+    { image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1872&h=826&fit=crop' },
+    { image: 'https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=1872&h=826&fit=crop' },
   ];
 
   // Auto-play functionality
@@ -45,13 +45,13 @@ const HeroSection = () => {
   }, [isHovering, isDragging, slides.length]);
 
   // Mouse drag handlers
-  const handleMouseDown = useCallback((e) => {
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
     setIsDragging(true);
     setStartX(e.pageX - translateX);
     e.preventDefault();
   }, [translateX]);
 
-  const handleMouseMove = useCallback((e) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!isDragging) return;
     const x = e.pageX - startX;
     setTranslateX(x);
@@ -73,12 +73,12 @@ const HeroSection = () => {
   }, [isDragging, translateX, slides.length]);
 
   // Touch handlers for mobile
-  const handleTouchStart = useCallback((e) => {
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
     setIsDragging(true);
     setStartX(e.touches[0].pageX - translateX);
   }, [translateX]);
 
-  const handleTouchMove = useCallback((e) => {
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
     if (!isDragging) return;
     const x = e.touches[0].pageX - startX;
     setTranslateX(x);
@@ -106,7 +106,7 @@ const HeroSection = () => {
       <div className="relative w-full max-w-[97.5vw] h-[43.02vw] px-[1.25vw]">
         <div
           ref={containerRef}
-          className="relative w-full h-full rounded-[1.67vw] overflow-hidden cursor-grab active:cursor-grabbing select-none"
+          className="relative w-full h-full rounded-[1.67vw] overflow-hidden cursor-grab active:cursor-grabbing select-none isolate"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={handleMouseLeave}
           onMouseDown={handleMouseDown}
@@ -116,24 +116,26 @@ const HeroSection = () => {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {/* Slides Container */}
+          {/* Slides Container - each slide is exactly 100% of viewport width */}
           <div 
             className="flex h-full transition-transform duration-500 ease-out"
             style={{ 
-              transform: `translateX(calc(-${currentIndex * 100}% + ${translateX}px))`,
+              width: `${slides.length * 100}%`,
+              transform: `translateX(calc(-${(currentIndex * 100) / slides.length}% + ${translateX}px))`,
               transition: isDragging ? 'none' : 'transform 0.5s ease-out'
             }}
           >
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className="min-w-full h-full relative flex-shrink-0"
+                className="h-full relative flex-shrink-0"
+                style={{ width: `${100 / slides.length}%` }}
                 onClick={handleSlideClick}
               >
                 <img
                   src={slide.image}
                   alt={`Slide ${index + 1}`}
-                  className="w-full h-full object-cover pointer-events-none"
+                  className="w-full h-full object-cover object-center pointer-events-none block"
                   draggable="false"
                 />
               </div>
