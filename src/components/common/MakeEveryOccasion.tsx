@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { ChevronRight } from "lucide-react";
 
 const IMAGE_CARDS = [
@@ -87,8 +89,15 @@ function ImageCard({
 }
 
 export default function MakeEveryOccasion() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = React.useState<number | null>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      align: "start",
+      loop: false,
+      containScroll: "trimSnaps",
+    },
+    [WheelGesturesPlugin()]
+  );
 
   return (
     <section className="w-full max-w-[95vw] sm:max-w-[92vw] mx-auto my-12 sm:my-16 px-4 sm:px-6 lg:px-8">
@@ -111,7 +120,7 @@ export default function MakeEveryOccasion() {
               </p>
             </div>
             <a
-              href="/product/blue-themed-welcome-baby-room-decor"
+              href="/categories/kids-celebrations"
               className="inline-flex items-center gap-2 w-fit px-8 py-3.5 rounded-full bg-gradient-to-r from-[#FF478D] to-[#9A47FF] text-white font-medium text-sm uppercase tracking-wide hover:shadow-lg hover:scale-[1.02] transition-all mt-8"
             >
               EXPLORE MORE
@@ -119,26 +128,27 @@ export default function MakeEveryOccasion() {
             </a>
           </div>
 
-          {/* Right - Scrollable images */}
+          {/* Right - Scrollable images (touch, mouse drag, wheel/trackpad) */}
           <div className="flex-1 lg:min-w-0 overflow-hidden">
             <div
-              ref={scrollRef}
-              className="h-full overflow-x-auto overflow-y-hidden scrollbar-hide flex gap-4 p-6 lg:p-8"
-              style={{
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                WebkitOverflowScrolling: "touch",
-              }}
+              ref={emblaRef}
+              className="overflow-hidden touch-pan-x cursor-grab active:cursor-grabbing select-none"
             >
-              {IMAGE_CARDS.map((card) => (
-                <ImageCard
-                  key={card.id}
-                  card={card}
-                  isHovered={hoveredCard === card.id}
-                  onHover={() => setHoveredCard(card.id)}
-                  onLeave={() => setHoveredCard(null)}
-                />
-              ))}
+              <div className="flex gap-4 -ml-4 p-6 lg:p-8">
+                {IMAGE_CARDS.map((card) => (
+                  <div
+                    key={card.id}
+                    className="flex-[0_0_16rem] sm:flex-[0_0_18rem] lg:flex-[0_0_20rem] min-w-0 shrink-0 pl-4"
+                  >
+                    <ImageCard
+                      card={card}
+                      isHovered={hoveredCard === card.id}
+                      onHover={() => setHoveredCard(card.id)}
+                      onLeave={() => setHoveredCard(null)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

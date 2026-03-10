@@ -4,8 +4,9 @@
  */
 
 import type { Product } from '@/types/category';
+import { slugify } from '@/utils/format.utils';
 
-export const productsData: Product[] = [
+const products: Omit<Product, 'slug'>[] = [
   { id: 1, image: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=1000&fit=crop", title: "Under the Sea Birthday Decor", rating: 4.0, price: 2499, originalPrice: 9999, discount: 75 },
   { id: 2, image: "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=1000&fit=crop", title: "Unicorn Theme Party Package", rating: 4.8, price: 3299, originalPrice: 12999, discount: 75 },
   { id: 3, image: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=800&h=1000&fit=crop", title: "Superhero Adventure Setup", rating: 4.5, price: 2899, originalPrice: 10999, discount: 74 },
@@ -22,3 +23,14 @@ export const productsData: Product[] = [
   { id: 14, image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1000&fit=crop", title: "Mermaid Lagoon Wonderland", rating: 4.9, price: 3999, originalPrice: 15299, discount: 74 },
   { id: 15, image: "https://images.unsplash.com/photo-1482928448487-a5e0fc32d2e9?w=800&h=1000&fit=crop", title: "Circus Big Top Extravaganza", rating: 4.4, price: 3399, originalPrice: 13099, discount: 74 },
 ];
+
+export const productsData: Product[] = products.map((p) => ({
+  ...p,
+  slug: slugify(p.title),
+}));
+
+/** Resolve product ID from slug for exclusion (e.g. Recently Viewed) */
+export function getProductIdBySlug(slug: string): number | null {
+  const product = productsData.find((p) => p.slug === slug);
+  return product ? (product.id as number) : null;
+}

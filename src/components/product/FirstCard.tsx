@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { MapPin, Star, Heart, ShoppingCart, ChevronLeft, ChevronRight } from 'lucide-react';
 

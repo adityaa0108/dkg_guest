@@ -90,7 +90,7 @@ export default function WeddingExtraSpecial() {
         {/* EXPLORE MORE button */}
         <div className="flex justify-center">
           <a
-            href="/product/blue-themed-welcome-baby-room-decor"
+            href="/categories/decorations/wedding/wedding-extra"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white shadow-md text-gray-900 font-medium text-sm uppercase tracking-wide hover:shadow-lg transition-shadow"
           >
             EXPLORE MORE

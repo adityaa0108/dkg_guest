@@ -6,7 +6,8 @@
 import type { SubCategoryItemPageData, CategoryPageData } from '@/types/category';
 import { productsData } from '@/lib/mock/products';
 
-const BANNER_IMAGE = '/images/Frame-2147224979 1.png';
+const SUB_CATEGORY_BANNER_IMAGE =
+  'https://images.unsplash.com/photo-1464369095431-e9a21285b5f3?w=1872&h=500&fit=crop';
 
 const CATEGORY_HERO_IMAGES: Record<string, string> = {
   anniversary: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=1872&h=500&fit=crop',
@@ -35,13 +36,18 @@ export async function getSubCategoryItemData(
   const isMainCategory = mainCategory === subCategory && subCategory === itemSlug;
   const heroImage = isMainCategory
     ? (CATEGORY_HERO_IMAGES[mainCategory] || DEFAULT_HERO)
-    : BANNER_IMAGE;
+    : SUB_CATEGORY_BANNER_IMAGE;
+
+  const title = [mainCategory, subCategory, itemSlug]
+    .filter((s, i, arr) => s !== arr[i - 1])
+    .map((w) => w.split('-').map((p) => p.charAt(0).toUpperCase() + p.slice(1)).join(' '))
+    .join(' / ');
 
   return {
     mainCategory,
     subCategory,
     itemSlug,
-    banner: { image: heroImage },
+    banner: { image: heroImage, title },
     subCategoryCards: [...Array(8)].map((_, i) => ({
       id: `card-${i}`,
     })),

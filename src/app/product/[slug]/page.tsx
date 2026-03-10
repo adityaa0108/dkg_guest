@@ -1,7 +1,7 @@
 import Header from '../../../components/navigation/Header';
-import CategoryNavigation from '../../../components/navigation/CategoryNavigation';
 import ProductDetail from '../../../components/product/ProductDetail';
 import Footer from '../../../components/common/Footer';
+import FirstCard from '../../../components/product/FirstCard';
 
 interface ProductPageProps {
   params: {
@@ -13,8 +13,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
   return (
     <main>
       <Header />
-      <CategoryNavigation />
-      <ProductDetail />
+      <ProductDetail slug={params.slug} />
       <Footer />
     </main>
   );

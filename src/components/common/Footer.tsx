@@ -22,6 +22,7 @@ const Footer: React.FC = () => {
       links: [
         { label: 'Home', href: '/' },
         { label: 'About us', href: '/about' },
+        { label: 'Contact us', href: '/contact' },
         { label: 'Services', href: '/services' },
         { label: 'Features', href: '/features' },
       ],

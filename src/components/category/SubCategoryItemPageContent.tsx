@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
+import Image from 'next/image';
 import { ProductCard } from '../common/ProductCard';
-import type { SubCategoryItemPageData, Product } from '@/types/category';
+import type { SubCategoryItemPageData } from '@/types/category';
 
 interface SubCategoryItemPageContentProps {
   /** Page data - from API or mock. When integrating API, pass fetched data here. */
@@ -12,51 +12,49 @@ interface SubCategoryItemPageContentProps {
 export default function SubCategoryItemPageContent({ data }: SubCategoryItemPageContentProps) {
   const {
     banner,
-    subCategoryCards = [],
     products = [],
     pagination = { page: 1, totalPages: 1 },
   } = data;
 
-  const productPageUrl = (product: Product) =>
-    product.slug ? `/product/${product.slug}` : '/product/blue-themed-welcome-baby-room-decor';
+  const BANNER_IMAGE =
+    'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1872&h=500&fit=crop';
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Hero Banner - Image only, no text overlay */}
+      {/* Hero Banner - with text overlay */}
       <div className="px-4 sm:px-6 lg:px-8 pt-6 lg:pt-8 pb-4">
         <div className="max-w-7xl mx-auto">
-          <div className="relative w-full h-[280px] lg:h-[360px] rounded-2xl overflow-hidden">
-            <img
-              src={banner.image}
-              alt={banner.title || ''}
-              className="w-full h-full object-cover"
+          <div className="relative w-full h-[280px] lg:h-[360px] rounded-2xl overflow-hidden bg-gray-200">
+            <Image
+              src={BANNER_IMAGE}
+              alt={banner.title || 'Banner'}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              unoptimized
             />
+            {(banner.title || banner.subtitle) && (
+              <>
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="absolute inset-0 flex items-center px-6 lg:px-16">
+                  <div className="max-w-2xl">
+                    {banner.title && (
+                      <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3">
+                        {banner.title}
+                      </h1>
+                    )}
+                    {banner.subtitle && (
+                      <p className="text-white/90 text-base lg:text-lg">{banner.subtitle}</p>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
-        {/* Subcategory cards - placeholder or from API */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
-          {subCategoryCards.length > 0
-            ? subCategoryCards.map((card) => (
-                <div
-                  key={card.id}
-                  className="aspect-[4/3] rounded-xl bg-pink-100 border border-pink-200 min-h-0 overflow-hidden"
-                >
-                  {card.image ? (
-                    <img src={card.image} alt={card.title || ''} className="w-full h-full object-cover" />
-                  ) : null}
-                </div>
-              ))
-            : [...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-[4/3] rounded-xl bg-pink-100 border border-pink-200 min-h-0"
-                />
-              ))}
-        </div>
-
         {/* Filter Button */}
         <div className="mb-8">
           <button className="h-14 px-6 bg-white rounded-2xl border-2 border-pink-900 inline-flex items-center gap-3 hover:bg-pink-50 transition-colors shadow-sm">
@@ -68,9 +66,7 @@ export default function SubCategoryItemPageContent({ data }: SubCategoryItemPage
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <Link key={product.id} href={productPageUrl(product)} className="block">
-              <ProductCard product={product} compact />
-            </Link>
+            <ProductCard key={product.id} product={product} compact />
           ))}
         </div>
 

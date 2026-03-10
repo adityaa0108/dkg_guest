@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Heart, Expand, ShoppingCart, ArrowRight } from 'lucide-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import type { Product } from '@/types/category';
+
+const getProductUrl = (product: Product) =>
+  product.slug ? `/product/${product.slug}` : '/product/blue-themed-welcome-baby-room-decor';
 import { productsData } from '@/lib/mock/products';
 
 export type { Product };
@@ -30,17 +34,19 @@ const FilterButton = ({ onClick }: FilterButtonProps) => {
 };
 
 export const ProductCard = ({ product, compact = false }: ProductCardProps) => {
+  const productUrl = getProductUrl(product);
+
   if (compact) {
     return (
       <div className="w-full flex flex-col bg-white shadow-lg hover:shadow-2xl transition-all duration-300 rounded-xl overflow-hidden border border-gray-100 cursor-pointer group">
-        <div className="w-full aspect-[3/4] relative bg-neutral-100 overflow-hidden">
+        <Link href={productUrl} className="w-full aspect-[3/4] relative bg-neutral-100 overflow-hidden block">
           <img className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" src={product.image} alt={product.title} />
           <div className="absolute right-2 top-2 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-pink-50 shadow-md"><Heart className="w-4 h-4 text-pink-500" /></button>
-            <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 shadow-md"><Expand className="w-4 h-4 text-gray-800" /></button>
-            <button className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 shadow-md"><ShoppingCart className="w-4 h-4 text-gray-800" /></button>
+            <button type="button" onClick={(e) => e.stopPropagation()} className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-pink-50 shadow-md"><Heart className="w-4 h-4 text-pink-500" /></button>
+            <button type="button" onClick={(e) => e.stopPropagation()} className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 shadow-md"><Expand className="w-4 h-4 text-gray-800" /></button>
+            <button type="button" onClick={(e) => e.stopPropagation()} className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-50 shadow-md"><ShoppingCart className="w-4 h-4 text-gray-800" /></button>
           </div>
-        </div>
+        </Link>
         <div className="p-4 flex flex-col gap-3">
           <div className="flex items-center gap-1.5">
             {[1, 2, 3, 4].map((s) => (
@@ -54,17 +60,17 @@ export const ProductCard = ({ product, compact = false }: ProductCardProps) => {
             <span className="text-zinc-400 text-sm line-through">₹{product.originalPrice}</span>
             <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-r-full">{product.discount}% OFF</span>
           </div>
-          <button className="w-full h-10 px-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center gap-2 text-white text-sm font-semibold uppercase hover:shadow-lg transition-all">
+          <Link href={productUrl} className="w-full h-10 px-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center gap-2 text-white text-sm font-semibold uppercase hover:shadow-lg transition-all">
             Book Now <ArrowRight className="w-4 h-4" />
-          </button>
+          </Link>
         </div>
       </div>
     );
   }
   return (
     <div className="w-full pb-[0.83vw] rounded-[1.67vw] inline-flex flex-col justify-start items-start gap-[0.83vw] bg-white shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-transparent hover:border-gray-200 cursor-pointer group">
-      {/* Image Section */}
-      <div className="self-stretch aspect-[4/3] relative bg-neutral-100 rounded-tl-[1.67vw] rounded-tr-[1.67vw] overflow-hidden">
+      {/* Image Section - clickable */}
+      <Link href={productUrl} className="self-stretch aspect-[4/3] relative bg-neutral-100 rounded-tl-[1.67vw] rounded-tr-[1.67vw] overflow-hidden block">
         <img
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           src={product.image}
@@ -74,21 +80,21 @@ export const ProductCard = ({ product, compact = false }: ProductCardProps) => {
         {/* Action Buttons - Only visible on hover */}
         <div className="absolute right-[1.25vw] top-[1.25vw] flex flex-col justify-start items-start gap-[0.63vw] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           {/* Heart Button */}
-          <button className="w-[2.5vw] h-[2.5vw] bg-white rounded-full flex items-center justify-center hover:bg-pink-50 hover:scale-110 transition-all duration-200 shadow-md">
+          <button type="button" onClick={(e) => e.stopPropagation()} className="w-[2.5vw] h-[2.5vw] bg-white rounded-full flex items-center justify-center hover:bg-pink-50 hover:scale-110 transition-all duration-200 shadow-md">
             <Heart className="w-[1.04vw] h-[1.04vw] text-pink-500" />
           </button>
 
           {/* Expand Button */}
-          <button className="w-[2.5vw] h-[2.5vw] bg-white rounded-full flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all duration-200 shadow-md">
+          <button type="button" onClick={(e) => e.stopPropagation()} className="w-[2.5vw] h-[2.5vw] bg-white rounded-full flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all duration-200 shadow-md">
             <Expand className="w-[1.04vw] h-[1.04vw] text-gray-800" />
           </button>
 
           {/* Add to Cart Button */}
-          <button className="w-[2.5vw] h-[2.5vw] bg-white rounded-full flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all duration-200 shadow-md">
+          <button type="button" onClick={(e) => e.stopPropagation()} className="w-[2.5vw] h-[2.5vw] bg-white rounded-full flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all duration-200 shadow-md">
             <ShoppingCart className="w-[1.04vw] h-[1.04vw] text-gray-800" />
           </button>
         </div>
-      </div>
+      </Link>
 
       {/* Content Section */}
       <div className="self-stretch px-[0.83vw] flex justify-start items-center gap-[0.42vw]">
@@ -143,14 +149,14 @@ export const ProductCard = ({ product, compact = false }: ProductCardProps) => {
           </div>
 
           {/* Book Now Button */}
-          <button className="h-[2.5vw] px-[1.67vw] py-[0.63vw] bg-gradient-to-l from-purple-500 to-pink-500 rounded-[5.21vw] flex justify-center items-center gap-[0.52vw] overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 hover:from-purple-600 hover:to-pink-600">
+          <Link href={productUrl} className="h-[2.5vw] px-[1.67vw] py-[0.63vw] bg-gradient-to-l from-purple-500 to-pink-500 rounded-[5.21vw] flex justify-center items-center gap-[0.52vw] overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 hover:from-purple-600 hover:to-pink-600">
             <span className="text-white text-[1.04vw] font-semibold font-sans uppercase leading-[1.25vw]">
               Book Now
             </span>
             <div className="w-[1.67vw] h-[1.67vw] flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
               <ArrowRight className="w-[1.04vw] h-[1.04vw] text-white" />
             </div>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

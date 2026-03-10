@@ -13,6 +13,8 @@ import {
   Play,
 } from 'lucide-react';
 import { ProductCard, productsData } from '../common/ProductCard';
+import { getProductIdBySlug } from '@/lib/mock/products';
+import HorizontalScrollContainer from '../common/HorizontalScrollContainer';
 import CurvedBanner from './CurvedBanner';
 import ReviewsSection from './ReviewsSection';
 import SimilarDecorSection from './SimilarDecorSection';
@@ -48,6 +50,7 @@ const INCLUDES_LIST = [
 type TabType = 'includes' | 'overview' | 'cancellation';
 
 interface ProductDetailProps {
+  slug?: string;
   product?: {
     title: string;
     location: string;
@@ -77,7 +80,10 @@ const DEFAULT_PRODUCT = {
   category: 'Product Category',
 };
 
-export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDetailProps) {
+export default function ProductDetail({ slug, product = DEFAULT_PRODUCT }: ProductDetailProps) {
+  const currentProductId = slug ? getProductIdBySlug(slug) : null;
+  const excludeProductIds = currentProductId ? [currentProductId] : [];
+
   const [selectedImage, setSelectedImage] = useState(0);
   const [pincode, setPincode] = useState('');
   const [date, setDate] = useState('');
@@ -139,16 +145,15 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
 
       {/* Main Content */}
       <div className="max-w-[1920px] mx-auto px-6 lg:px-28 py-8 lg:py-12 w-full overflow-x-hidden">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-          {/* Left Column - Image Gallery + Why Choose DKGPro */}
-          <div className="lg:w-[48%] flex flex-col gap-8">
-            {/* Image Gallery */}
-            <div className="flex flex-col gap-4">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 lg:items-stretch">
+          {/* Left Column - Image Gallery */}
+          <div className="lg:w-[48%] flex flex-col min-h-0">
+            <div className="flex flex-col gap-4 flex-1 min-h-0">
+              <div className="relative flex-1 min-h-[380px] rounded-2xl overflow-hidden bg-gray-100">
                 <img
                   src={images[selectedImage]}
                   alt={p.title}
-                  className="w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 <button
                   onClick={prevImage}
@@ -169,7 +174,7 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
                   <Play className="w-6 h-6 text-white fill-white ml-0.5" />
                 </div>
               </div>
-              <div className="flex gap-3 overflow-x-auto pb-2">
+              <div className="flex gap-3 overflow-x-auto pb-2 flex-shrink-0">
                 {thumbnails.map((thumb, index) => (
                   <button
                     key={index}
@@ -183,33 +188,12 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
                 ))}
               </div>
             </div>
-
-            {/* Why Choose DKGPro */}
-            <div className="bg-[#FFF8FD] rounded-2xl shadow-md border border-purple-100 p-6 lg:p-8">
-              <h2 className="text-[#5E213E] text-lg font-black tracking-widest uppercase mb-6">
-                WHY CHOOSE DKGPro?
-              </h2>
-              <ul className="space-y-4">
-                {WHY_CHOOSE_FEATURES.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                    </div>
-                    <p className="text-gray-700 text-sm lg:text-base">
-                      <span className="font-bold text-gray-900">{feature.title}</span>
-                      <span> - {feature.description}</span>
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
 
           {/* Right Column - Product Info + Booking */}
           <div className="lg:w-[52%] flex flex-col gap-6">
-            {/* Product Info Card + Heart/Cart */}
-            <div className="flex gap-4">
-              <div className="flex-1 bg-[#FFF8FD] rounded-2xl shadow-md border border-purple-100 p-6 lg:p-8">
+            {/* Product Info Card */}
+            <div className="bg-[#FFF8FD] rounded-2xl shadow-md border border-purple-100 p-6 lg:p-8">
                 <div className="flex items-center gap-2 mb-2">
                   <MapPin className="w-4 h-4 text-gray-500" />
                   <span className="text-gray-600 text-sm">{p.location}</span>
@@ -231,59 +215,58 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
                     {p.discountPercent}% OFF
                   </span>
                 </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                <button className="w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                  <Heart className="w-6 h-6 text-[#5E213E]" />
-                </button>
-                <button className="w-12 h-12 bg-white rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                  <ShoppingCart className="w-6 h-6 text-[#5E213E]" />
-                </button>
-              </div>
             </div>
 
             {/* Booking Form Card */}
-            <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 lg:p-8">
-              <div className="flex gap-4 mb-6">
-                <div className="flex-1 bg-amber-50 rounded-xl border border-amber-200 p-4">
+            <div className="bg-white rounded-2xl shadow-md border border-[#E8DCE8] p-6 lg:p-8">
+              <div className="flex gap-4 mb-6 items-start">
+                <div className="flex-1 min-w-0 bg-white rounded-xl border border-[#F5C942]/40 p-4 shadow-sm">
                   <div className="flex items-start gap-3 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-[#F5C942] border border-[#F5C942] flex items-center justify-center flex-shrink-0">
                       <span className="text-white text-sm font-bold">!</span>
                     </div>
-                    <span className="text-amber-800 font-medium">Complete these steps to book:</span>
+                    <span className="text-gray-900 font-medium">Complete these steps to book:</span>
                   </div>
                   <ul className="ml-11 space-y-1">
-                    <li className="flex items-center gap-2 text-amber-800 text-sm">
-                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                    <li className="flex items-center gap-2 text-gray-800 text-sm">
+                      <span className="w-2 h-2 rounded-full bg-[#F5C942]" />
                       Enter a valid 6-digit pincode
                     </li>
-                    <li className="flex items-center gap-2 text-amber-800 text-sm">
-                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                    <li className="flex items-center gap-2 text-gray-800 text-sm">
+                      <span className="w-2 h-2 rounded-full bg-[#F5C942]" />
                       Select a booking date
                     </li>
                   </ul>
+                </div>
+                <div className="flex flex-col gap-2 flex-shrink-0">
+                  <button className="w-12 h-12 bg-white rounded-lg border border-[#6F3F5F] flex items-center justify-center hover:bg-[#FAF5F9] transition-colors shadow-sm">
+                    <Heart className="w-6 h-6 text-[#6F3F5F]" />
+                  </button>
+                  <button className="w-12 h-12 bg-white rounded-lg border border-[#6F3F5F] flex items-center justify-center hover:bg-[#FAF5F9] transition-colors shadow-sm">
+                    <ShoppingCart className="w-6 h-6 text-[#6F3F5F]" />
+                  </button>
                 </div>
               </div>
 
               <div className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[#5E213E] font-bold text-sm mb-2">Enter Pincode *</label>
+                    <label className="block text-[#6F3F5F] font-bold text-sm mb-2">Enter Pincode *</label>
                     <input
                       type="text"
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                       placeholder="Enter your area pincode"
-                      className="w-full h-12 px-4 rounded-full border border-gray-300 text-gray-800 placeholder:text-gray-400 focus:outline-none focus:border-[#5E213E]"
+                      className="w-full h-12 px-4 rounded-xl border border-[#6F3F5F]/60 text-gray-800 placeholder:text-[#997D8C] focus:outline-none focus:border-[#6F3F5F]"
                     />
                   </div>
                   <div>
-                    <label className="block text-[#5E213E] font-bold text-sm mb-2">Select Date</label>
+                    <label className="block text-[#6F3F5F] font-bold text-sm mb-2">Select Date</label>
                     <input
                       type="date"
                       value={date}
                       onChange={(e) => setDate(e.target.value)}
-                      className="w-full h-12 px-4 rounded-full border border-gray-300 text-gray-800 focus:outline-none focus:border-[#5E213E]"
+                      className="w-full h-12 px-4 rounded-xl border border-[#6F3F5F]/60 text-gray-800 placeholder:text-[#997D8C] focus:outline-none focus:border-[#6F3F5F]"
                     />
                   </div>
                 </div>
@@ -291,30 +274,55 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
                 <div className="flex gap-3">
                   <button
                     disabled={!isBookingEnabled}
-                    className={`flex-1 h-12 px-6 rounded-full flex items-center justify-center gap-2 uppercase font-semibold text-sm transition-colors ${
+                    className={`flex-1 h-12 px-6 rounded-xl flex items-center justify-center gap-2 uppercase transition-colors ${
                       isBookingEnabled
-                        ? 'bg-[#5E213E] text-white hover:bg-[#4a1a30]'
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        ? 'bg-[#6F3F5F] text-white font-semibold text-sm hover:bg-[#5a3349]'
+                        : 'bg-[#DCDCDC] text-white font-normal text-xs cursor-not-allowed'
                     }`}
                   >
                     {isBookingEnabled ? (
                       <>Book Now <ChevronRight className="w-5 h-5" /></>
                     ) : (
-                      <>Please enter pincode & select date to book <ChevronRight className="w-5 h-5" /></>
+                      <>Please enter pincode & select date to book <ChevronRight className="w-4 h-4" /></>
                     )}
                   </button>
                   <button
                     onClick={scrollToTabs}
-                    className="h-12 px-6 rounded-full border-2 border-[#5E213E] font-semibold text-sm uppercase text-[#5E213E] hover:bg-[#FFF8FD] transition-colors"
+                    className="h-12 px-6 rounded-xl border-2 border-[#6F3F5F]/50 bg-white font-medium text-xs uppercase text-[#6F3F5F] hover:bg-[#FAF5F9] transition-colors"
                   >
                     See Details
                   </button>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Feature Cards - using images from product-detail-images */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        {/* Why Choose DKGPro + Feature Cards - 2 column grid 50% each */}
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
+          {/* Left - Why Choose DKGPro */}
+          <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 lg:p-8">
+            <h2 className="text-[#5E213E] text-lg font-black tracking-widest uppercase mb-6">
+              WHY CHOOSE DKGPro?
+            </h2>
+            <ul className="space-y-4">
+              {WHY_CHOOSE_FEATURES.map((feature, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <div className="w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                  </div>
+                  <p className="text-gray-700 text-sm lg:text-base">
+                    <span className="font-bold text-gray-900">{feature.title}</span>
+                    <span> - {feature.description}</span>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right - Feature Cards */}
+          <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 lg:p-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 h-full">
               {FEATURE_IMAGES.map(({ src, label }) => (
                 <div
                   key={label}
@@ -463,41 +471,31 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
               </button>
             </div>
 
-            {/* Secondary Filter Buttons - horizontally scrollable */}
-            <div
-              className="customize-scroll overflow-x-auto overflow-y-hidden pb-4 mb-6 max-w-full"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
-            >
-              <div className="flex gap-3 w-max">
-                {SUB_CATEGORIES.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setSubCategory(cat.id)}
-                    className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wide whitespace-nowrap transition-colors ${
-                      subCategory === cat.id
-                        ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white'
-                        : 'bg-white text-purple-600 border border-purple-200 hover:bg-purple-50'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* Secondary Filter Buttons - horizontally scrollable (mouse drag + touchpad) */}
+            <HorizontalScrollContainer className="mb-6 max-w-full" gap="gap-3">
+              {SUB_CATEGORIES.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setSubCategory(cat.id)}
+                  className={`flex-shrink-0 px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wide whitespace-nowrap transition-colors ${
+                    subCategory === cat.id
+                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white'
+                      : 'bg-white text-purple-600 border border-purple-200 hover:bg-purple-50'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </HorizontalScrollContainer>
 
-            {/* Product Cards - horizontally scrollable */}
-            <div
-              className="customize-scroll overflow-x-auto pb-4 w-full"
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
-            >
-              <div className="flex gap-6">
-                {productsData.slice(0, 8).map((product) => (
-                  <div key={product.id} className="w-64 min-w-[256px] flex-shrink-0">
-                    <ProductCard product={product} compact />
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* Product Cards - horizontally scrollable (mouse drag + touchpad) */}
+            <HorizontalScrollContainer className="w-full">
+              {productsData.slice(0, 8).map((product) => (
+                <div key={product.id} className="w-64 min-w-[256px] flex-shrink-0">
+                  <ProductCard product={product} compact />
+                </div>
+              ))}
+            </HorizontalScrollContainer>
           </div>
         </div>
 
@@ -513,7 +511,7 @@ export default function ProductDetail({ product = DEFAULT_PRODUCT }: ProductDeta
         <SimilarDecorSection />
 
         {/* Recently Viewed Section */}
-        <RecentlyViewedSection />
+        <RecentlyViewedSection excludeProductIds={excludeProductIds} />
 
         {/* Seo Card Section */}
         <SeoCard />

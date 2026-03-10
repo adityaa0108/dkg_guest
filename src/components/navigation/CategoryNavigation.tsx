@@ -355,9 +355,19 @@ export default function NavigationBar() {
       }
     };
 
+    const closeDropdown = () => {
+      setActiveDropdown(null);
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('scroll', closeDropdown, true);
+    document.addEventListener('scroll', closeDropdown, true);
+    window.addEventListener('wheel', closeDropdown, { passive: true });
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', closeDropdown, true);
+      document.removeEventListener('scroll', closeDropdown, true);
+      window.removeEventListener('wheel', closeDropdown);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
@@ -375,10 +385,10 @@ export default function NavigationBar() {
 
   if (isLoading) {
     return (
-      <nav className="w-full bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600">
-        <div className="max-w-[1920px] mx-auto px-28 py-3 flex items-center justify-between gap-8">
+      <nav className="w-full bg-white border-b border-gray-200">
+        <div className="max-w-[100vw] mx-auto px-[6vw] sm:px-[5vw] lg:px-[4vw] xl:px-[5vw] 2xl:px-[6vw] py-[0.6vw] flex items-center justify-between gap-[1.2vw]">
           {[...Array(9)].map((_, i) => (
-            <div key={i} className="h-4 bg-white/20 rounded animate-pulse w-24" />
+            <div key={i} className="h-[1vw] min-h-3 bg-gray-200 rounded animate-pulse w-[6vw] min-w-16" />
           ))}
         </div>
       </nav>
@@ -387,9 +397,9 @@ export default function NavigationBar() {
 
   return (
     <div ref={dropdownRef} className="relative">
-      <nav className="w-full bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 relative z-50">
-        <div className="max-w-[1920px] mx-auto px-28">
-          <ul className="flex items-center justify-between gap-8 py-3">
+      <nav className="w-full bg-white border-b border-gray-200 relative z-50">
+        <div className="max-w-[100vw] mx-auto px-[6vw] sm:px-[5vw] lg:px-[4vw] xl:px-[5vw] 2xl:px-[6vw]">
+          <ul className="flex items-center justify-between gap-[1.2vw] py-[0.6vw]">
             {menuItems.map((item) => (
               <li
                 key={item.id}
@@ -400,14 +410,14 @@ export default function NavigationBar() {
                 <Link
                   href={item.href}
                   onClick={(e) => handleCategoryClick(e, item.href)}
-                  className={`px-2 py-2 flex items-center gap-1.5 text-white text-sm font-medium uppercase tracking-wide transition-all whitespace-nowrap cursor-pointer ${
-                    activeDropdown === item.id ? 'opacity-100' : 'hover:opacity-90'
+                  className={`px-[0.4vw] py-[0.4vw] flex items-center gap-[0.3vw] text-gray-800 text-[0.7vw] min-[375px]:text-xs font-medium uppercase tracking-wide transition-all whitespace-nowrap cursor-pointer hover:text-[#6B2D5C] ${
+                    activeDropdown === item.id ? 'text-[#6B2D5C]' : ''
                   }`}
                 >
                   <span>{item.label}</span>
                   {item.hasDropdown && (
                     <ChevronDown
-                      className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
+                      className={`w-[0.9vw] min-w-3 h-[0.9vw] min-h-3 shrink-0 transition-transform duration-300 ${
                         activeDropdown === item.id ? 'rotate-180' : ''
                       }`}
                     />
@@ -422,8 +432,8 @@ export default function NavigationBar() {
       {/* Dropdown Card - Fixed to center of screen, inside dropdownRef so clicks don't close */}
       {activeDropdown && menuItems.find(item => item.id === activeDropdown)?.categories && (
         <div
-          className="fixed left-1/2 -translate-x-1/2 z-40 top-[10.17vw]"
-          style={{ width: 'calc(100% - 14rem)', maxWidth: '72.92vw' }}
+          className="fixed left-1/2 -translate-x-1/2 z-40 top-[7.5vw]"
+          style={{ width: 'calc(100% - 8rem)', maxWidth: '88vw' }}
           onMouseEnter={() => {
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
           }}
@@ -431,7 +441,13 @@ export default function NavigationBar() {
         >
           <div className="dropdown-card">
             <div className="bg-gradient-to-br from-purple-900 via-purple-800 to-pink-900 rounded-[1.25vw] shadow-2xl overflow-hidden">
-              <div className="flex p-[2.08vw] gap-[2.08vw]">
+              {/* Dropdown Title */}
+              <div className="px-[2.08vw] pt-[2.08vw] pb-[0.5vw]">
+                <h3 className="text-white text-[1.1vw] min-[375px]:text-base font-bold uppercase tracking-wider">
+                  {menuItems.find(item => item.id === activeDropdown)?.label}
+                </h3>
+              </div>
+              <div className="flex p-[2.08vw] pt-0 gap-[2.08vw]">
                 {/* Left Side - Image */}
                 <div className="w-[23.44vw] flex-shrink-0">
                   <div className="relative h-full rounded-[0.83vw] overflow-hidden shadow-xl group">
@@ -456,7 +472,7 @@ export default function NavigationBar() {
                         <Link
                           href={subCategoryHref}
                           onClick={(e) => handleCategoryClick(e, subCategoryHref)}
-                          className="block text-pink-200 text-[0.73vw] font-bold tracking-wider uppercase border-b border-pink-400/30 pb-[0.63vw] transition-all duration-300 group-hover:border-pink-300/60 group-hover:text-white cursor-pointer"
+                          className="block text-pink-200 text-[0.85vw] min-[375px]:text-sm font-bold tracking-wider uppercase border-b border-pink-400/30 pb-[0.63vw] transition-all duration-300 group-hover:border-pink-300/60 group-hover:text-white cursor-pointer"
                         >
                           {category.title}
                         </Link>

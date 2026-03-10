@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { MapPin, Search, Heart, ShoppingCart, X } from 'lucide-react';
+import CategoryNavigation from './CategoryNavigation';
 
 export default function Header() {
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
@@ -14,13 +15,14 @@ export default function Header() {
 
   return (
     <>
+      <div className="sticky top-0 z-50 w-full bg-white shadow-sm">
       <header className="w-full">
         {/* Top Bar */}
-        <div className="w-full bg-[#faf8f5] border-b border-gray-200">
-          <div className="max-w-[1920px] mx-auto px-28">
-            <div className="flex items-center justify-between py-5 gap-6">
+        <div className="w-full bg-[#FFF9FC] border-b border-gray-200">
+          <div className="max-w-[100vw] mx-auto px-[4vw] sm:px-[3vw] lg:px-[4vw] xl:px-[5vw] 2xl:px-[6vw]">
+            <div className="flex items-center justify-between py-[1.2vw] gap-[1.5vw]">
               {/* Logo */}
-              <div className="flex items-center gap-6">
+              <div className="flex items-center gap-[1.5vw]">
                 <Link href="/" className="flex items-center cursor-pointer shrink-0">
                   <Image
                     src="/images/Logo.svg"
@@ -28,43 +30,43 @@ export default function Header() {
                     width={140}
                     height={40}
                     priority
-                    className="h-10 w-auto"
+                    className="h-[2.5vw] min-h-8 w-auto"
                   />
                 </Link>
 
                 {/* Location Button */}
-                <button className="h-12 px-4 py-2 rounded-full border border-gray-300 bg-white flex items-center gap-2 hover:bg-gray-50 transition-colors shrink-0">
-                  <MapPin className="w-5 h-5 text-gray-700" />
-                  <span className="text-gray-700 text-base font-medium whitespace-nowrap">
+                <button className="h-[2.5vw] min-h-10 px-[1vw] py-[0.5vw] rounded-full border border-gray-300 bg-white flex items-center gap-[0.5vw] hover:bg-gray-50 transition-colors shrink-0">
+                  <MapPin className="w-[1.2vw] min-w-4 h-[1.2vw] min-h-4 text-gray-700" />
+                  <span className="text-gray-700 text-[0.9vw] min-[375px]:text-base font-medium whitespace-nowrap">
                     Delhi NCR
                   </span>
                 </button>
               </div>
 
               {/* Search Bar */}
-              <div className="flex-1 max-w-2xl relative min-w-0">
+              <div className="flex-1 max-w-[40vw] relative min-w-0">
                 <div className="relative">
-                  <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600" />
+                  <Search className="absolute left-[1.5vw] top-1/2 -translate-y-1/2 w-[1.2vw] min-w-4 h-[1.2vw] min-h-4 text-gray-600" />
                   <input
                     type="text"
                     placeholder="Search for..."
-                    className="w-full h-12 pl-14 pr-6 rounded-full border border-gray-300 bg-white text-gray-800 placeholder:text-gray-500 focus:outline-none focus:border-gray-400 transition-colors"
+                    className="w-full h-[2.5vw] min-h-10 pl-[3.5vw] pr-[1.5vw] rounded-full border border-gray-300 bg-white text-gray-800 placeholder:text-gray-500 focus:outline-none focus:border-gray-400 transition-colors text-[0.9vw] min-[375px]:text-base"
                   />
                 </div>
               </div>
 
               {/* Right Actions */}
-              <div className="flex items-center gap-6 shrink-0">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center gap-[1.5vw] shrink-0">
+                <div className="flex items-center gap-[0.8vw]">
                   {/* Wishlist Button */}
                   <button
                     onClick={() => setIsWishlistOpen(!isWishlistOpen)}
-                    className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative"
+                    className="w-[2.5vw] min-w-10 h-[2.5vw] min-h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative"
                     aria-label="Wishlist"
                   >
-                    <Heart className="w-6 h-6 text-gray-700" />
+                    <Heart className="w-[1.5vw] min-w-5 h-[1.5vw] min-h-5 text-gray-700" />
                     {wishlistItems.length > 0 && (
-                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
+                      <span className="absolute -top-0.5 -right-0.5 w-[1.2vw] min-w-4 h-[1.2vw] min-h-4 bg-pink-500 text-white text-[0.65vw] min-[375px]:text-xs font-semibold rounded-full flex items-center justify-center">
                         {wishlistItems.length}
                       </span>
                     )}
@@ -72,11 +74,11 @@ export default function Header() {
 
                   {/* Cart Button */}
                   <button
-                    className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative"
+                    className="w-[2.5vw] min-w-10 h-[2.5vw] min-h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative"
                     aria-label="Shopping Cart"
                   >
-                    <ShoppingCart className="w-6 h-6 text-gray-700" />
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs font-semibold rounded-full flex items-center justify-center">
+                    <ShoppingCart className="w-[1.5vw] min-w-5 h-[1.5vw] min-h-5 text-gray-700" />
+                    <span className="absolute -top-0.5 -right-0.5 w-[1.2vw] min-w-4 h-[1.2vw] min-h-4 bg-pink-500 text-white text-[0.65vw] min-[375px]:text-xs font-semibold rounded-full flex items-center justify-center">
                       0
                     </span>
                   </button>
@@ -85,7 +87,7 @@ export default function Header() {
                 {/* Login Button */}
                 <Link
                   href="/login"
-                  className="h-10 px-8 bg-[#6B2D5C] text-white text-sm font-semibold rounded-full hover:bg-[#5a2650] transition-colors uppercase flex items-center justify-center"
+                  className="h-[2.5vw] min-h-9 px-[2vw] bg-[#6B2D5C] text-white text-[0.8vw] min-[375px]:text-sm font-semibold rounded-full hover:bg-[#5a2650] transition-colors uppercase flex items-center justify-center"
                 >
                   Login
                 </Link>
@@ -94,6 +96,8 @@ export default function Header() {
           </div>
         </div>
       </header>
+      <CategoryNavigation />
+      </div>
 
       {/* Wishlist Popup */}
       {isWishlistOpen && (
@@ -105,7 +109,7 @@ export default function Header() {
           />
 
           {/* Popup */}
-          <div className="fixed right-8 top-24 w-96 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden">
+          <div className="fixed right-[2vw] top-[6vw] w-[25vw] min-w-[280px] max-w-[384px] bg-white rounded-2xl shadow-2xl z-50 overflow-hidden">
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
               <div className="flex items-center gap-2">

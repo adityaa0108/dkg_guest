@@ -1,8 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { ProductCard } from '../common/ProductCard';
-import type { CategoryPageData, Product } from '@/types/category';
+import type { CategoryPageData } from '@/types/category';
 
 interface CategoryPageContentProps {
   /** Page data - from API or mock. When integrating API, pass fetched data here. */
@@ -17,8 +16,8 @@ export default function CategoryPageContent({ data }: CategoryPageContentProps) 
     pagination = { page: 1, totalPages: 1 },
   } = data;
 
-  const productPageUrl = (product: Product) =>
-    product.slug ? `/product/${product.slug}` : '/product/blue-themed-welcome-baby-room-decor';
+  const BANNER_IMAGE =
+    'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1872&h=500&fit=crop';
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -27,7 +26,7 @@ export default function CategoryPageContent({ data }: CategoryPageContentProps) 
         <div className="max-w-7xl mx-auto">
           <div className="relative w-full h-[280px] lg:h-[360px] rounded-2xl overflow-hidden">
             <img
-              src={banner.image}
+              src={BANNER_IMAGE}
               alt={banner.title || ''}
               className="w-full h-full object-cover"
             />
@@ -52,7 +51,20 @@ export default function CategoryPageContent({ data }: CategoryPageContentProps) 
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+      {/* Secondary image - reduced size */}
+      <div className="px-4 sm:px-6 lg:px-8 pb-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="relative w-full h-[160px] lg:h-[220px] rounded-2xl overflow-hidden">
+            <img
+              src="/images/Frame-2147224979 1.png"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
         {/* Subcategory cards - placeholder or from API */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {subCategoryCards.length > 0
@@ -85,9 +97,7 @@ export default function CategoryPageContent({ data }: CategoryPageContentProps) 
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
-            <Link key={product.id} href={productPageUrl(product)} className="block">
-              <ProductCard product={product} compact />
-            </Link>
+            <ProductCard key={product.id} product={product} compact />
           ))}
         </div>
 

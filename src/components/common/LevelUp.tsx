@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Heart, ChevronRight } from "lucide-react";
 
 const PACKAGES = [
@@ -92,10 +93,13 @@ function ServiceCard({
         </div>
 
         <div className="flex items-center gap-3 mt-6">
-          <button className="flex-1 min-w-[140px] py-3 px-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center gap-2 text-white font-semibold text-sm uppercase tracking-wide">
+          <Link
+            href="/product/blue-themed-welcome-baby-room-decor"
+            className="flex-1 min-w-[140px] py-3 px-8 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center gap-2 text-white font-semibold text-sm uppercase tracking-wide hover:opacity-90 transition-opacity"
+          >
             BOOK NOW
             <ChevronRight className="w-4 h-4 flex-shrink-0" />
-          </button>
+          </Link>
           <button
             onClick={onToggleFavorite}
             className="w-11 h-11 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors flex-shrink-0"
@@ -175,7 +179,7 @@ export default function LevelUp() {
         {/* Explore More */}
         <div className="mt-8 sm:mt-12 flex justify-center">
           <a
-            href="/product/blue-themed-welcome-baby-room-decor"
+            href="/categories/decorations"
             className="inline-flex items-center gap-2 text-gray-500 text-sm sm:text-base font-medium uppercase tracking-wide hover:text-gray-700 transition-colors"
           >
             Explore More

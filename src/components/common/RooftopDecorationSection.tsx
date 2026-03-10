@@ -65,7 +65,7 @@ export default function RooftopDecorationSection() {
 
           <div className="text-center mt-10">
             <Link
-              href="/products/rooftop-decoration"
+              href="/categories/decorations/rooftop/rooftop-decoration"
               className="inline-flex items-center gap-2 text-gray-800 font-semibold hover:text-purple-600 transition-colors"
             >
               EXPLORE MORE

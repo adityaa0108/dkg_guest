@@ -19,7 +19,6 @@ import FestivalSpecial from '../components/common/FestivalSpecial'
 import SuccessStories from '../components/common/SuccessStories'
 import WelcomeToDKGPro from '../components/common/WelcomeToDKGPro'
 import ProductCard from '../components/common/ProductCard'
-import CategoryNavigation from '../components/navigation/CategoryNavigation'
 import Header from '../components/navigation/Header'
 import CategoryBanner from '../components/common/CategoryBanner'
 import EventGrid from '../components/common/EventGrid'
@@ -34,7 +33,6 @@ export default function HomePage() {
   return (
     <main>
       <Header/>
-      <CategoryNavigation/>
       <HeroSection />
       <FrameImageSection />
       <BirthdayCardHome/>

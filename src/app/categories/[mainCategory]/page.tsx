@@ -1,5 +1,4 @@
 import Header from '../../../components/navigation/Header';
-import CategoryNavigation from '../../../components/navigation/CategoryNavigation';
 import SubCategoryItemPageContent from '../../../components/category/SubCategoryItemPageContent';
 import Footer from '../../../components/common/Footer';
 import { getSubCategoryItemData } from '../../../lib/api/category';
@@ -20,7 +19,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <main>
       <Header />
-      <CategoryNavigation />
       <SubCategoryItemPageContent data={data} />
       <Footer />
     </main>

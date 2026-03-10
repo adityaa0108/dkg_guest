@@ -1,7 +1,10 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+
+const ROMANTIC_CATEGORY_URL = "/categories/anniversary";
 
 function StarRating({ rating }: { rating: number }) {
   const fullStars = Math.floor(rating);
@@ -62,40 +65,40 @@ export default function RomanticCoupleExperience() {
         {/* Content Grid: 1 large left, 3 stacked right */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Left - Large block with overlay */}
-          <a href="/product/blue-themed-welcome-baby-room-decor" className="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-lg min-h-[320px] block">
+          <Link href={ROMANTIC_CATEGORY_URL} className="lg:col-span-2 relative rounded-2xl overflow-hidden shadow-lg min-h-[320px] block">
             <img
               src="/images/Image%20Container.png"
               alt="Romantic experience"
               className="w-full h-full min-h-[320px] object-cover"
             />
             {/* <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" /> */}
-          </a>
+          </Link>
 
           {/* Right - 3 blocks stacked */}
           <div className="flex flex-col gap-4 sm:gap-6">
-            <a href="/product/blue-themed-welcome-baby-room-decor" className="flex-1 min-h-[140px] rounded-2xl overflow-hidden shadow-lg block">
+            <Link href={ROMANTIC_CATEGORY_URL} className="flex-1 min-h-[140px] rounded-2xl overflow-hidden shadow-lg block">
               <img
                 src="/images/Image.png"
                 alt="Couple experience"
                 className="w-full h-full min-h-[140px] object-cover"
               />
-            </a>
-            <a href="/product/blue-themed-welcome-baby-room-decor" className="flex-1 min-h-[140px] rounded-2xl overflow-hidden shadow-lg block">
+            </Link>
+            <Link href={ROMANTIC_CATEGORY_URL} className="flex-1 min-h-[140px] rounded-2xl overflow-hidden shadow-lg block">
               <img
                 src="/images/Image%20(1).png"
                 alt="Couple in field"
                 className="w-full h-full min-h-[140px] object-cover"
               />
-            </a>
-            <a
-              href="/product/blue-themed-welcome-baby-room-decor"
+            </Link>
+            <Link
+              href={ROMANTIC_CATEGORY_URL}
               className="flex-1 min-h-[100px] rounded-2xl overflow-hidden shadow-lg bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center gap-2 hover:shadow-xl transition-shadow"
             >
               <span className="text-white font-bold text-sm sm:text-base uppercase tracking-wide">
                 EXPLORE MORE
               </span>
               <ChevronRight className="w-4 h-4 text-white" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

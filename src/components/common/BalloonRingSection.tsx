@@ -68,7 +68,7 @@ export default function BalloonRingSection() {
           {/* Explore More Link */}
           <div className="text-center mt-10">
             <Link
-              href="/products/balloon-ring"
+              href="/categories/decorations/birthday/balloon-ring"
               className="inline-flex items-center gap-2 text-gray-800 font-semibold hover:text-purple-600 transition-colors"
             >
               EXPLORE MORE
